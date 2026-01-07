@@ -1,0 +1,41 @@
+<layout id="MainLayout" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <label
+        id="timeOfTheDay"
+        x="center" 
+        y="15%"
+        text="--:--"
+        font="Graphics.FONT_SMALL"
+        color="Graphics.COLOR_RED"
+        justification="Graphics.TEXT_JUSTIFY_CENTER" 
+    />
+    <label
+        id="currentTimer"
+        x="center" 
+        y="center"
+        text="00:00"
+        font="Graphics.FONT_NUMBER_THAI_HOT"
+        color="Graphics.COLOR_YELLOW"
+        justification="Graphics.TEXT_JUSTIFY_CENTER"
+    />
+    <label
+        id="currentDirectionDescription"
+        x="center" 
+        y="70%"
+        text="Paused"
+        font="Graphics.FONT_SMALL"
+        color="Graphics.COLOR_GREEN"
+        justification="Graphics.TEXT_JUSTIFY_CENTER"
+    />
+    <!-- <bitmap 
+        id="arrowUp" 
+        x="15%" 
+        y="center" 
+        filename="../images/up.png" 
+    />
+    <bitmap 
+        id="arrowDown" 
+        x="85%" 
+        y="center" 
+        filename="../images/down.png"
+    /> -->
+</layout>

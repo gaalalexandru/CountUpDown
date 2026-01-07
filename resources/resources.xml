@@ -1,0 +1,10 @@
+<resources>
+    <bitmap
+        id="UpIcon"
+        filename="images/up.png"
+    />
+    <bitmap
+        id="DownIcon"
+        filename="images/down.png"
+    />
+</resources>
