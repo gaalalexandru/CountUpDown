@@ -4,7 +4,7 @@ import Toybox.Timer;
 
 class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     private static var timerValue = 0;
-    private var timerRunning = false;
+    private var isCounting = false;
     var isCountingUp = true;
     var oneSecTimer;
     private var appView = getView();
@@ -14,7 +14,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     function initialize() {
         System.println("5: App Delegate initialized");
         oneSecTimer = new Timer.Timer();
-
+        oneSecTimer.start(method(:oneSecondCyclicFunction), 1000, true);
         BehaviorDelegate.initialize();
     }
 
@@ -26,7 +26,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
 
     function onBack() as Boolean {
         System.println("Main View back key pressed 1111");
-        if(timerRunning == true) {
+        if(isCounting == true) {
                 isCountingUp = !isCountingUp;
                 System.println("Reversing count direction from back key");
         } else {
@@ -36,15 +36,13 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
                 startCounting();
             }
         }
-
-
         return true;
     }
 
     function onSelect() as Boolean {
         System.println("Main View item selected 1111");
-        if(timerRunning == false) {
-            timerRunning = true;
+        if(isCounting == false) {
+            isCounting = true;
             startCounting();
             if (isCountingUp) {
                 System.println("Counting Up started 1111");
@@ -55,7 +53,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
             }
         }
         else {
-            timerRunning = false;
+            isCounting = false;
             stopCounting();
             System.println("Counting stopped 1111");
             appView.updateCurrentDirectionDescription(CountDirectionType.Paused);
@@ -66,22 +64,24 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
 
     function startCounting() as Void {
         System.println("Starting counting 1111");
-        oneSecTimer.start(method(:oneSecondTimerCallback), 1000, true);
+        //oneSecTimer.start(method(:oneSecondCyclicFunction), 1000, true);
+        isCounting = true;
     }
 
     function stopCounting() as Void {
         System.println("Stopping counting 1111");
-        oneSecTimer.stop();
+        // oneSecTimer.stop();
+        isCounting = false;
     }
 
-    function oneSecondTimerCallback() as Void {
-        
+    function oneSecondCyclicFunction() as Void {
         System.println("10: One Second Timer Callback called");
-
-        if (isCountingUp == true) {
-            timerValue += 1;
-        } else {
-            timerValue -= 1;
+        if(isCounting == true) {
+            if (isCountingUp == true) {
+                timerValue += 1;
+            } else {
+                timerValue -= 1;
+            }
         }
 
         if (timerValue <= 0) {

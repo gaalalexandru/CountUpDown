@@ -6,6 +6,12 @@ class CountUpDownView extends WatchUi.View {
     private var timeOfTheDayElement;
     private var currentTimerElement;
     private var currentDirectionDescriptionElement;
+    private var upArrowBitmap;
+    private var downArrowBitmap;
+    private var screenWidth;
+    private var screenHeight;
+    var iconX;
+    var iconY;
 
     function initialize() {
         System.println("4: App View initialized");
@@ -19,6 +25,16 @@ class CountUpDownView extends WatchUi.View {
         timeOfTheDayElement = findDrawableById("timeOfTheDay") as Text;
         currentTimerElement = findDrawableById("currentTimer") as Text;
         currentDirectionDescriptionElement = findDrawableById("currentDirectionDescription") as Text;
+        upArrowBitmap = WatchUi.loadResource(Rez.Drawables.UpIcon);
+        downArrowBitmap = WatchUi.loadResource(Rez.Drawables.DownIcon);
+        screenWidth  = dc.getWidth();
+        screenHeight = dc.getHeight();
+
+        // Center the heart icon
+        iconX = ((screenWidth / 10 ) * 1.5 ) + (upArrowBitmap.getWidth() / 2);
+        iconY = ((screenHeight / 10 ) * 7 );
+        //  + (upArrowBitmap.getHeight() / 2);
+
         // updateTimeOfTheDay();
         // updateTimerValue(158);
         // updateCurrentDirectionDescription(CountDirectionType.CountDown);
@@ -50,6 +66,11 @@ class CountUpDownView extends WatchUi.View {
 
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
+        // if (System.getClockTime()) {
+        //     dc.drawBitmap(upArrowBitmap, iconX, iconY);
+        // } else {
+        //     dc.drawBitmap(downArrowBitmap, iconX, iconY);
+        // }
     }
 
     // Called when this View is removed from the screen. Save the
@@ -74,11 +95,11 @@ class CountUpDownView extends WatchUi.View {
 
         switch (countDirection) {
             case CountDirectionType.CountUp:
-                label = "Counting Up";
+                label = "Count Up";
                 color = Graphics.COLOR_GREEN;
                 break;
             case CountDirectionType.CountDown:
-                label = "Counting Down";
+                label = "Count Down";
                 color = Graphics.COLOR_DK_RED;
                 break;
             case CountDirectionType.Paused:
