@@ -1,12 +1,22 @@
-<layout id="MainLayout" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+<layout id="MainLayout" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">  
     <label
-        id="timeOfTheDay"
-        x="center" 
+        id="timeHM"
+        x="56%"
         y="15%"
         text="--:--"
-        font="Graphics.FONT_SMALL"
+        font="Graphics.FONT_MEDIUM"
         color="Graphics.COLOR_RED"
-        justification="Graphics.TEXT_JUSTIFY_CENTER" 
+        justification="Graphics.TEXT_JUSTIFY_RIGHT"
+    />
+
+    <label
+        id="timeSec"
+        x="56%"
+        y="18%"
+        text=":--"
+        font="Graphics.FONT_TINY"
+        color="Graphics.COLOR_RED"
+        justification="Graphics.TEXT_JUSTIFY_LEFT"
     />
     <label
         id="currentTimer"

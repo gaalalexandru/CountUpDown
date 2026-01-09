@@ -16,6 +16,7 @@ class CountUpDownMenuDelegate extends WatchUi.MenuInputDelegate {
         if (item == :item_1) {
             System.println("Reverse count direction");
             appDelegate.isCountingUp = !appDelegate.isCountingUp;
+            //appView.setCountingDirection(isCountingUp);
         } else if (item == :item_2) {
             System.println("item 2");
         } else if (item == :item_3) {

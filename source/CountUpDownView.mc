@@ -3,26 +3,30 @@ import Toybox.WatchUi;
 import Toybox.System;
 
 class CountUpDownView extends WatchUi.View {
-    private var timeOfTheDayElement;
+    private var timeOfTheDayElement_hm;
+    private var timeOfTheDayElement_sec;
     private var currentTimerElement;
     private var currentDirectionDescriptionElement;
     private var upArrowBitmap;
     private var downArrowBitmap;
     private var screenWidth;
     private var screenHeight;
-    var iconX;
-    var iconY;
+    private var iconX;
+    private var iconY;
+    var isCountingUp = true;
 
     function initialize() {
-        System.println("4: App View initialized");
+        //System.println("4: App View initialized");
         View.initialize();
     }
 
     // Load your resources here
     function onLayout(dc as Dc) as Void {
-        System.println("6: App View on Layout called");
+        //System.println("6: App View on Layout called");
         setLayout(Rez.Layouts.MainLayout(dc));
-        timeOfTheDayElement = findDrawableById("timeOfTheDay") as Text;
+        timeOfTheDayElement_hm = findDrawableById("timeHM") as Text;
+        timeOfTheDayElement_sec = findDrawableById("timeSec") as Text;
+
         currentTimerElement = findDrawableById("currentTimer") as Text;
         currentDirectionDescriptionElement = findDrawableById("currentDirectionDescription") as Text;
         upArrowBitmap = WatchUi.loadResource(Rez.Drawables.UpIcon);
@@ -32,8 +36,7 @@ class CountUpDownView extends WatchUi.View {
 
         // Center the heart icon
         iconX = ((screenWidth / 10 ) * 1.5 ) + (upArrowBitmap.getWidth() / 2);
-        iconY = ((screenHeight / 10 ) * 7 );
-        //  + (upArrowBitmap.getHeight() / 2);
+        iconY = ((screenHeight / 10 ) * 7 ) + (upArrowBitmap.getHeight() / 2);
 
         // updateTimeOfTheDay();
         // updateTimerValue(158);
@@ -46,46 +49,41 @@ class CountUpDownView extends WatchUi.View {
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() as Void {
-        System.println("7: App View on Show called");
+        //System.println("7: App View on Show called");
     }
 
     // Update the view
     function onUpdate(dc as Dc) as Void {
-        System.println("8: App View on Update called");
+        //System.println("8: App View on Update called");
         updateTimeOfTheDay();
 
         // var clockTime = System.getClockTime();
         // var timeString = Lang.format("$1$:$2$:$3$", [clockTime.hour, clockTime.min.format("%02d"), clockTime.sec.format("%02d")]);
         // timeOfTheDayElement.setText(timeString);
         // currentTimerElement.setText(Lang.format("$1$:$2$", [ (timerValue / 60).format("%02d"), (timerValue % 60).format("%02d") ]));
-        // if (isCountingUp) {
-        //     currentDirectionDescriptionElement.setText("Counting Up");
-        // } else {
-        //     currentDirectionDescriptionElement.setText("Counting Down");
-        // }
-
         // Call the parent onUpdate function to redraw the layout
+        
         View.onUpdate(dc);
-        // if (System.getClockTime()) {
-        //     dc.drawBitmap(upArrowBitmap, iconX, iconY);
-        // } else {
-        //     dc.drawBitmap(downArrowBitmap, iconX, iconY);
-        // }
+        if (isCountingUp == true) {
+            dc.drawBitmap(iconX, iconY, upArrowBitmap);
+        } else {
+            dc.drawBitmap(iconX, iconY, downArrowBitmap);
+        }
     }
 
     // Called when this View is removed from the screen. Save the
     // state of this View here. This includes freeing resources from
     // memory.
     function onHide() as Void {
-        System.println("9: App View on Hide called");
+        //System.println("9: App View on Hide called");
     }
 
     function updateTimeOfTheDay() as Void {
         var clockTime = System.getClockTime();
-        // var timeString = Lang.format("$1$:$2$:$3$", [clockTime.hour, clockTime.min.format("%02d"), clockTime.sec.format("%02d")]);
-        var timeString = Lang.format("$1$:$2$", [clockTime.hour.format("%02d"), clockTime.min.format("%02d")]);
-        timeOfTheDayElement.setText(timeString);
-        WatchUi.requestUpdate();
+        var timeHM = Lang.format("$1$:$2$",[clockTime.hour, clockTime.min.format("%02d")]);
+        var timeSec = clockTime.sec.format("%02d");
+        timeOfTheDayElement_hm.setText(timeHM);
+        timeOfTheDayElement_sec.setText(":" + timeSec);
     }
 
     // function updateCurrentDirectionDescription(countDirection as CountDirectionType) as Void {
@@ -110,7 +108,7 @@ class CountUpDownView extends WatchUi.View {
         
         currentDirectionDescriptionElement.setText(label);
         currentDirectionDescriptionElement.setColor(color);
-        WatchUi.requestUpdate();
+        // WatchUi.requestUpdate();
     }
 
     function updateTimerValue(value) as Void {
@@ -118,6 +116,14 @@ class CountUpDownView extends WatchUi.View {
         var seconds = (value % 60);
         // timerValue = value;
         currentTimerElement.setText(Lang.format("$1$:$2$", [ minutes.format("%02d"), seconds.format("%02d") ]));
-        WatchUi.requestUpdate();
+        // WatchUi.requestUpdate();
     }
+
+    function setCountingDirection(isUp) {
+        if (isCountingUp != isUp) {
+            isCountingUp = isUp;
+            WatchUi.requestUpdate(); // redraw ONLY when changed
+        }
+    }
+
 }
