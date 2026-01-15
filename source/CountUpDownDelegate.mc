@@ -10,9 +10,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     private var appView = getView();
     static var isCountingUpOld = true;
     private var _dialogHeaderString as String;
-    // private var _view as ConfirmationDialogView;
 
-    // function initialize(view as ConfirmationDialogView)  {
     function initialize()  {
         System.println("CountUpDownDelegate: initialize()");
         oneSecTimer = new Timer.Timer();
@@ -20,8 +18,6 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         appView.setCountingDirection(isCountingUp);
         BehaviorDelegate.initialize();
         _dialogHeaderString = WatchUi.loadResource($.Rez.Strings.DialogHeader) as String;
-        // _view = view;
-        // _view = new ConfirmationDialogView();
     }
 
     function onMenu() as Boolean {
@@ -136,10 +132,6 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         }
     }
 
-    // function onSelect() {
-
-    // }
-
     function onExit() {
         // Clean up timer
         System.println("onExit called");
@@ -223,24 +215,13 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         if (confirmed == WatchUi.CONFIRM_YES) {
             onExitCust();
         } else {
-        // user cancelled
+            // user cancelled
+            System.println("User chose not to exit");
         }
     }
 
     function onExitCust() {
         System.println("Exiting application");
         System.exit();
-    }
-
-    //! Handle a confirmation selection
-    //! @param value The confirmation value
-    //! @return true if handled, false otherwise
-    public function onResponse(value as Confirm) as Boolean {
-        if (value == WatchUi.CONFIRM_NO) {
-            _view.setResultString("_cancelString");
-        } else {
-            _view.setResultString("_confirmString");
-        }
-        return true;
     }
 }
