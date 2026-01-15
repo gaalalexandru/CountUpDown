@@ -5,4 +5,9 @@
     <string id="menu_label_2">Screen Setting</string>
     <string id="menu_label_3">Advanced Settings</string>
     <string id="menu_label_4">About</string>
+
+    <string id="DefaultResponse">No response</string>
+    <string id="DialogHeader">Confirm Exit?</string>
+    <string id="Confirm">Yes</string>
+    <string id="Cancel">No</string>
 </strings>

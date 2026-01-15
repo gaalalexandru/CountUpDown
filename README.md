@@ -14,6 +14,7 @@
 ## 2. References
 ### 2.1 Garmin Connect IQ SDK Samples
 - Attention
+- ConfirmationDialog
 - MenuTest
 - Menu2Sample
 - Picker

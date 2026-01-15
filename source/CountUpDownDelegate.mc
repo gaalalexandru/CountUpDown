@@ -9,46 +9,54 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     private var oneSecTimer;
     private var appView = getView();
     static var isCountingUpOld = true;
+    private var _dialogHeaderString as String;
+    // private var _view as ConfirmationDialogView;
 
-    function initialize() {
-        //System.println("5: App Delegate initialized");
+    // function initialize(view as ConfirmationDialogView)  {
+    function initialize()  {
+        System.println("CountUpDownDelegate: initialize()");
         oneSecTimer = new Timer.Timer();
         oneSecTimer.start(method(:oneSecondCyclicFunction), 1000, true);
         appView.setCountingDirection(isCountingUp);
         BehaviorDelegate.initialize();
+        _dialogHeaderString = WatchUi.loadResource($.Rez.Strings.DialogHeader) as String;
+        // _view = view;
+        // _view = new ConfirmationDialogView();
     }
 
     function onMenu() as Boolean {
-        //System.println("11: App Delegate on Menu called");
-        WatchUi.pushView(new Rez.Menus.MainMenu(), new CountUpDownMenuDelegate(), WatchUi.SLIDE_UP);
+        System.println("CountUpDownDelegate: onMenu()");
+        WatchUi.pushView(new Rez.Menus.MainMenu(),
+                         new $.CountUpDownMenuDelegate(),
+                         WatchUi.SLIDE_UP);
         return true;
     }
 
-    function onBack() as Boolean {
-        //System.println("Main View back key pressed 1111");
-        if((timerValue == 0) && (isCounting == false)) {
-            //System.println("Timer is at zero and not counting, cannot count down");
-            isCountingUp = true;
-            //System.println("Setting count direction to up from back key");
-            startCounting();
-        } else {
-            //System.println("Reversing count direction from back key");
-            isCountingUp = !isCountingUp;
-        }
+    // function onBack() as Boolean {
+    //     System.println("onBack()");
+    //     if((timerValue == 0) && (isCounting == false)) {
+    //         //System.println("Timer is at zero and not counting, cannot count down");
+    //         isCountingUp = true;
+    //         //System.println("Setting count direction to up from back key");
+    //         startCounting();
+    //     } else {
+    //         //System.println("Reversing count direction from back key");
+    //         isCountingUp = !isCountingUp;
+    //     }
 
-        if (isCountingUp) {
-            //System.println("Counting Up started 1111");
-            appView.updateCurrentDirectionDescription(CountDirectionType.CountUp);
-        } else {
-            //System.println("Counting Down started 1111");
-            appView.updateCurrentDirectionDescription(CountDirectionType.CountDown);
-        }
-        appView.setCountingDirection(isCountingUp);
-        return true;
-    }
+    //     if (isCountingUp) {
+    //         //System.println("Counting Up started 1111");
+    //         appView.updateCurrentDirectionDescription(CountDirectionType.CountUp);
+    //     } else {
+    //         //System.println("Counting Down started 1111");
+    //         appView.updateCurrentDirectionDescription(CountDirectionType.CountDown);
+    //     }
+    //     appView.setCountingDirection(isCountingUp);
+    //     return true;
+    // }
 
     function onSelect() as Boolean {
-        //System.println("Main View item selected 1111");
+        System.println("onSelect()");
         if(isCounting == false) {
             startCounting();
             if (isCountingUp) {
@@ -69,12 +77,12 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function startCounting() as Void {
-        //System.println("Starting counting 1111");
+        System.println("startCounting()");
         isCounting = true;
     }
 
     function stopCounting() as Void {
-        //System.println("Stopping counting 1111");
+        System.println("stopCounting()");
         isCounting = false;
     }
 
@@ -112,4 +120,127 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         WatchUi.requestUpdate();
     }
 
+    function onIncrease() {
+        System.println("onIncrease()");
+        if (isCountingUp == false) {
+            isCountingUp = true;
+            startCounting();
+        }
+    }
+
+    function onDecrease() {
+        System.println("onDecrease()");
+        if (isCountingUp == true) {
+            isCountingUp = false;
+            startCounting();
+        }
+    }
+
+    // function onSelect() {
+
+    // }
+
+    function onExit() {
+        // Clean up timer
+        System.println("onExit called");
+        if (isCounting == false) {
+            isCountingUp = true;
+            startCounting();
+        }
+        oneSecTimer.stop();
+    }
+
+    public function onKey(evt as KeyEvent) as Boolean {
+        var key = evt.getKey();
+        System.println("Key Event received: " + key);
+        if (key == WatchUi.KEY_UP) {
+            onIncrease();
+            return true;
+        }
+
+        if (key == WatchUi.KEY_DOWN) {
+            onDecrease();
+            return true;
+        }
+
+        if (key == WatchUi.KEY_ENTER) {
+            System.println("KEY_ENTER pressed");
+            onSelect();
+            return true;
+        }
+
+        if (key == WatchUi.KEY_ESC) {
+            System.println("KEY_ESC pressed");
+            return handleBack();
+        }
+        return false;
+    }
+
+    function onSwipe(evt) {
+        var direction = evt.getDirection();
+
+        System.println("Swipe Event received: " + direction);
+
+
+        if (direction == WatchUi.SWIPE_UP) {
+            onIncrease();
+            return true;
+        }
+
+        if (direction == WatchUi.SWIPE_DOWN) {
+            onDecrease();
+            return true;
+        }
+
+        return false;
+    }
+
+    function onTap(evt) {
+        onSelect();
+        return true;
+    }
+
+    function handleBack() {
+        System.println("handleBack(), isCounting = " + isCounting);
+        if (isCounting == false) {
+            confirmExit();
+            return true;
+        }
+
+        // Default behavior when not paused
+        return true;
+    }
+
+
+    function confirmExit() {
+        WatchUi.pushView(new WatchUi.Confirmation(_dialogHeaderString),
+                         new $.ConfirmationDialogDelegate(self, method(:onConfirmed)),
+                         WatchUi.SLIDE_IMMEDIATE);
+    }
+
+    function onConfirmed(confirmed) {
+        System.println("onConfirmed(): confirmed = " + confirmed);
+        if (confirmed == WatchUi.CONFIRM_YES) {
+            onExitCust();
+        } else {
+        // user cancelled
+        }
+    }
+
+    function onExitCust() {
+        System.println("Exiting application");
+        System.exit();
+    }
+
+    //! Handle a confirmation selection
+    //! @param value The confirmation value
+    //! @return true if handled, false otherwise
+    public function onResponse(value as Confirm) as Boolean {
+        if (value == WatchUi.CONFIRM_NO) {
+            _view.setResultString("_cancelString");
+        } else {
+            _view.setResultString("_confirmString");
+        }
+        return true;
+    }
 }
