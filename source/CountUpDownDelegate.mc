@@ -23,7 +23,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     function onMenu() as Boolean {
         System.println("CountUpDownDelegate: onMenu()");
         WatchUi.pushView(new Rez.Menus.MainMenu(),
-                         new $.CountUpDownMenuDelegate(),
+                         new $.SettingsMenuDelegate(),
                          WatchUi.SLIDE_UP);
         return true;
     }
@@ -90,14 +90,14 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
             } else {
                 timerValue -= 1;
             }
-        }
 
-        if (timerValue <= 0) {
-            timerValue = 0;
-            stopCounting();
-            //System.println("Timer reached zero, stopping counting");
-            appView.updateCurrentDirectionDescription(CountDirectionType.Paused);
-            isCountingUp = true;
+            if (timerValue <= 0) {
+                timerValue = 0;
+                stopCounting();
+                //System.println("Timer reached zero, stopping counting");
+                appView.updateCurrentDirectionDescription(CountDirectionType.Paused);
+                isCountingUp = true;
+            }
         }
 
         if (isCountingUp != isCountingUpOld) {

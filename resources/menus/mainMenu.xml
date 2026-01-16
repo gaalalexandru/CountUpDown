@@ -1,19 +1,19 @@
 <menu 
     id="MainMenu" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
         <menu-item 
-            id="item_1" 
-            label="@Strings.menu_label_1" 
+            id="interval" 
+            label="@Strings.menu_interval" 
         />
         <menu-item 
-            id="item_2" 
-            label="@Strings.menu_label_2" 
+            id="direction" 
+            label="@Strings.menu_direction" 
         />
         <menu-item 
-            id="item_3" 
-            label="@Strings.menu_label_3" 
+            id="repetition" 
+            label="@Strings.menu_repetition" 
         />
         <menu-item 
-            id="item_4" 
-            label="@Strings.menu_label_4" 
+            id="type" 
+            label="@Strings.menu_type" 
         />
 </menu>

@@ -1,13 +1,25 @@
 <strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
     <string id="AppName">CountUpDown</string>
-    <string id="prompt">Click the menu button</string>
-    <string id="menu_label_1">Reverse</string>
-    <string id="menu_label_2">Screen Setting</string>
-    <string id="menu_label_3">Advanced Settings</string>
-    <string id="menu_label_4">About</string>
-
-    <string id="DefaultResponse">No response</string>
+    <string id="menu_interval">Count Interval</string>
+    <string id="menu_direction">Count Direction</string>
+    <string id="menu_repetition">Count Repetition</string>
+    <string id="menu_type">Count Type</string>
     <string id="DialogHeader">Confirm Exit?</string>
-    <string id="Confirm">Yes</string>
-    <string id="Cancel">No</string>
+
+    <string id="countDirectionSubmenuTitle">Count Direction</string>
+    <string id="menuCountUp">Count Up</string>
+    <string id="menuCountDown">Count Down</string>
+
+    <string id="countModeSubmenuTitle">Count Mode</string>
+    <string id="menuCountMirrored">Count Mirrored</string>
+    <string id="menuCountReset">Count Reset</string>
+
+    <string id="countRepetitionSubmenuTitle">Count Repetition</string>
+    <string id="menuCountSingle">Count Single</string>
+    <string id="menuCountRepeated">Count Repeated</string>
+
+    <!-- <string id="prompt">Click the menu button</string> -->
+    <!-- <string id="DefaultResponse">No response</string> -->
+    <!-- <string id="Confirm">Yes</string> -->
+    <!-- <string id="Cancel">No</string> -->
 </strings>
