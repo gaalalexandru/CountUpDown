@@ -1,22 +1,22 @@
 using Toybox.Application;
 
-module Settings {
+class Settings {
     // -------------------------------------------------
     // App version (read-only)
     // -------------------------------------------------
     function getAppVersion() {
-        return Application.getProperty("appVersion");
+        return Application.Properties.getValue("appVersion");
     }
 
     // -------------------------------------------------
     // Count interval (seconds)
     // -------------------------------------------------
     function getInterval() {
-        return Application.getProperty("countInterval");
+        return Application.Properties.getValue("countInterval");
     }
 
     function setInterval(v) {
-        Application.setProperty("countInterval", v);
+        Application.Properties.setValue("countInterval", v);
     }
 
     // -------------------------------------------------
@@ -25,11 +25,11 @@ module Settings {
     // false = Count Down
     // -------------------------------------------------
     function isCountingUp() {
-        return Application.getProperty("countDirectionUp");
+        return Application.Properties.getValue("countDirectionUp");
     }
 
     function setCountingUp(v) {
-        Application.setProperty("countDirectionUp", v);
+        Application.Properties.setValue("countDirectionUp", v);
     }
 
     // -------------------------------------------------
@@ -38,11 +38,11 @@ module Settings {
     // false = One time
     // -------------------------------------------------
     function isRepeated() {
-        return Application.getProperty("countRepetitionMode");
+        return Application.Properties.getValue("countRepetitionMode");
     }
 
     function setRepeated(v) {
-        Application.setProperty("countRepetitionMode", v);
+        Application.Properties.setValue("countRepetitionMode", v);
     }
 
     // -------------------------------------------------
@@ -51,16 +51,16 @@ module Settings {
     // false = Reset mode
     // -------------------------------------------------
     function isMirrored() {
-        return Application.getProperty("countTypeMirrored");
+        return Application.Properties.getValue("countTypeMirrored");
     }
 
     function setMirrored(v) {
-        Application.setProperty("countTypeMirrored", v);
+        Application.Properties.setValue("countTypeMirrored", v);
     }
-    // -------------------------------------------------
-    // Optional helpers
-    // -------------------------------------------------
-    function resetToDefaults() {
-        Application.clearProperties();
-    }
+    // // -------------------------------------------------
+    // // Optional helpers
+    // // -------------------------------------------------
+    // function resetToDefaults() {
+    //     Application.Properties.clearAll();
+    // }
 }

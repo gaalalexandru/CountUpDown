@@ -12,10 +12,10 @@ class SettingsMenuDelegate extends WatchUi.MenuInputDelegate {
     }
 
 
-    function onMenuItem(item) {
+    function onMenuItem(item) as Void {
         System.println("on Menu item called: " + item);
-        var id = item.getId();
-        switch (id) {
+        // var id = item.getId();
+        switch (item) {
         case "interval":
             showIntervalPicker();
             break;
@@ -28,10 +28,7 @@ class SettingsMenuDelegate extends WatchUi.MenuInputDelegate {
         case "type":  
             showTypePicker();
             break;
-        default:
-            return false;
         }
-        return true;
     }
 
     // function onMenuItem(item as Symbol) as Void {
@@ -63,18 +60,18 @@ class SettingsMenuDelegate extends WatchUi.MenuInputDelegate {
     // -------------------------------------------------
     function showIntervalPicker() {
 
-        // var picker = new WatchUi.NumberPicker(
-        //     "Count Interval (sec)",
-        //     1,          // min
-        //     3600,       // max
-        //     Settings.getInterval()
-        // );
+        var picker = new WatchUi.NumberPicker(
+            "Count Interval (sec)",
+            1,          // min
+            3600,       // max
+            Settings.getInterval()
+        );
 
-        // WatchUi.pushView(
-        //     picker,
-        //     new IntervalPickerDelegate(),
-        //     WatchUi.SLIDE_IMMEDIATE
-        // );
+        WatchUi.pushView(
+            picker,
+            new countIntervalPickerDelegate(),
+            WatchUi.SLIDE_IMMEDIATE
+        );
     }
 
     // -------------------------------------------------

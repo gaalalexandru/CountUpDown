@@ -21,11 +21,11 @@ class countModeSubmenuDelegate extends WatchUi.MenuInputDelegate {
     public function onMenuItem(item as Symbol) as Void {
         if (item == :menuMirror) {
             System.println("Mirror Mode");
-            Application.getApp().isMirrored = true;
+            Settings.setMirrored(true);
             WatchUi.popView(WatchUi.SLIDE_DOWN);
         } else if (item == :menuReset) {
             System.println("Reset Mode");
-            Application.getApp().isMirrored = false;
+            Settings.setMirrored(false);
             WatchUi.popView(WatchUi.SLIDE_DOWN);
         }
     }

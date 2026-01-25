@@ -7,6 +7,7 @@
 import Toybox.Lang;
 import Toybox.System;
 import Toybox.WatchUi;
+import Settings;
 
 //! Input handler to respond to Count Direction menu selections
 class countDirectionSubmenuDelegate extends WatchUi.MenuInputDelegate {
@@ -21,11 +22,11 @@ class countDirectionSubmenuDelegate extends WatchUi.MenuInputDelegate {
     public function onMenuItem(item as Symbol) as Void {
         if (item == :menuCountUp) {
             System.println("Count Up");
-            Application.getApp().isCountingUp = true;
+            Settings.setCountingUp(true);
             WatchUi.popView(WatchUi.SLIDE_DOWN);
         } else if (item == :menuCountDown) {
             System.println("Count Down");
-            Application.getApp().isCountingUp = false;
+            Settings.setCountingUp(false);
             WatchUi.popView(WatchUi.SLIDE_DOWN);
         }
     }

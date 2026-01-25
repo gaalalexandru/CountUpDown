@@ -7,6 +7,7 @@
 import Toybox.Lang;
 import Toybox.System;
 import Toybox.WatchUi;
+import Settings;
 
 //! Input handler to respond to Count Repetition menu selections
 class countRepetitionSubmenuDelegate extends WatchUi.MenuInputDelegate {
@@ -21,11 +22,11 @@ class countRepetitionSubmenuDelegate extends WatchUi.MenuInputDelegate {
     public function onMenuItem(item as Symbol) as Void {
         if (item == :menuRepeated) {
             System.println("Repeated");
-            Application.getApp().isRepeated = true;
+            Settings.setRepeated(true);
             WatchUi.popView(WatchUi.SLIDE_DOWN);
         } else if (item == :menuOneTime) {
             System.println("One Time");
-            Application.getApp().isRepeated = false;
+            Settings.setRepeated(false);
             WatchUi.popView(WatchUi.SLIDE_DOWN);
         }
     }
