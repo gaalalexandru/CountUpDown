@@ -4,18 +4,18 @@ class Settings {
     // -------------------------------------------------
     // App version (read-only)
     // -------------------------------------------------
-    function getAppVersion() {
+    static function getAppVersion() {
         return Application.Properties.getValue("appVersion");
     }
 
     // -------------------------------------------------
     // Count interval (seconds)
     // -------------------------------------------------
-    function getInterval() {
+    static function getInterval() {
         return Application.Properties.getValue("countInterval");
     }
 
-    function setInterval(v) {
+    static function setInterval(v) {
         Application.Properties.setValue("countInterval", v);
     }
 
@@ -24,11 +24,11 @@ class Settings {
     // true  = Count Up
     // false = Count Down
     // -------------------------------------------------
-    function isCountingUp() {
+    static function isCountingUp() {
         return Application.Properties.getValue("countDirectionUp");
     }
 
-    function setCountingUp(v) {
+    static function setCountingUp(v) {
         Application.Properties.setValue("countDirectionUp", v);
     }
 
@@ -37,11 +37,11 @@ class Settings {
     // true  = Repeated
     // false = One time
     // -------------------------------------------------
-    function isRepeated() {
+    static function isRepeated() {
         return Application.Properties.getValue("countRepetitionMode");
     }
 
-    function setRepeated(v) {
+    static function setRepeated(v) {
         Application.Properties.setValue("countRepetitionMode", v);
     }
 
@@ -50,17 +50,17 @@ class Settings {
     // true  = Mirror mode
     // false = Reset mode
     // -------------------------------------------------
-    function isMirrored() {
+    static function isMirrored() {
         return Application.Properties.getValue("countTypeMirrored");
     }
 
-    function setMirrored(v) {
+    static function setMirrored(v) {
         Application.Properties.setValue("countTypeMirrored", v);
     }
     // // -------------------------------------------------
     // // Optional helpers
     // // -------------------------------------------------
-    // function resetToDefaults() {
+    // static function resetToDefaults() {
     //     Application.Properties.clearAll();
     // }
 }

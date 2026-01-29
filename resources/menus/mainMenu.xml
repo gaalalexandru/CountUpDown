@@ -1,11 +1,11 @@
 <menu 
     id="MainMenu" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
-        <menu-item 
+        <!-- <menu-item 
             id="interval" 
             label="@Strings.menu_interval" 
-        />
+        /> -->
         <menu-item 
-            id="direction" 
+            id="direction_menu" 
             label="@Strings.menu_direction" 
         />
         <menu-item 

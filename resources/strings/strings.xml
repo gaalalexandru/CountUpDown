@@ -6,6 +6,8 @@
     <string id="menu_type">Count Type</string>
     <string id="DialogHeader">Confirm Exit?</string>
 
+    <string id="countIntervalPickerTitle">Pick a count interval</string>
+
     <string id="countDirectionSubmenuTitle">Count Direction</string>
     <string id="menuCountUp">Count Up</string>
     <string id="menuCountDown">Count Down</string>

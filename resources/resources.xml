@@ -7,4 +7,8 @@
         id="DownIcon"
         filename="images/down.png"
     />
+    <bitmap
+        id="Gear"
+        filename="images/gear.png"
+    />
 </resources>
