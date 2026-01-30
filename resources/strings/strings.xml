@@ -20,6 +20,12 @@
     <string id="menuCountSingle">Count Single</string>
     <string id="menuCountRepeated">Count Repeated</string>
 
+    <string id="timePickerTitle">Target Time</string>
+    <string id="morning">AM</string>
+    <string id="afternoon">PM</string>
+    
+    <string id="timeSeparator">:</string>
+    
     <!-- <string id="prompt">Click the menu button</string> -->
     <!-- <string id="DefaultResponse">No response</string> -->
     <!-- <string id="Confirm">Yes</string> -->

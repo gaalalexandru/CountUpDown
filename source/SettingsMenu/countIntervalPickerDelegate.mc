@@ -1,8 +1,8 @@
 // import Toybox.Application.Storage;
 // import Toybox.Graphics;
-// import Toybox.Lang;
-// import Toybox.System;
-// import Toybox.WatchUi;
+import Toybox.Lang;
+import Toybox.WatchUi;
+import Toybox.System;
 
 // class countIntervalPicker extends WatchUi.Picker {
 
@@ -30,15 +30,27 @@
 //         Picker.initialize({:title=>title, :pattern=>factories, :defaults=>defaults});
 //     }
 // }
-// class countIntervalPickerDelegate extends WatchUi.PickerDelegate {
-//     private var _callback;
-//     private var _callbackParams;
+class countIntervalPickerDelegate extends WatchUi.PickerDelegate {
 
-//     //! Constructor
-//     public function initialize(callback as Method) {
-//         _callback = callback;
-//         // _callbackParams = callbackParams;
+    //! Constructor
+    public function initialize() {
+        PickerDelegate.initialize();
+    }
 
-//         PickerDelegate.initialize();
-//     }
-// }
+    //! Handle a cancel event
+    //! @return true if handled, false otherwise
+    public function onCancel() as Boolean {
+        WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+        return true;
+    }
+
+    //! Handle a confirm event
+    //! @param values The values chosen
+    //! @return true if handled, false otherwise
+    public function onAccept(values as Array) as Boolean {
+        // Storage.setValue("color", values[0] as Number);
+        Settings.setInterval(values[0] as Number);
+        WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+        return true;
+    }
+}

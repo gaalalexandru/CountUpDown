@@ -5,7 +5,7 @@
         y="15%"
         text="--:--"
         font="Graphics.FONT_MEDIUM"
-        color="Graphics.COLOR_RED"
+        color="Graphics.COLOR_BLUE"
         justification="Graphics.TEXT_JUSTIFY_RIGHT"
     />
 
@@ -15,7 +15,7 @@
         y="18%"
         text=":--"
         font="Graphics.FONT_TINY"
-        color="Graphics.COLOR_RED"
+        color="Graphics.COLOR_BLUE"
         justification="Graphics.TEXT_JUSTIFY_LEFT"
     />
     <label

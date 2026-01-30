@@ -135,7 +135,7 @@ class CountUpDownView extends WatchUi.View {
                 break;
             case CountDirectionType.CountDown:
                 label = "Count Down";
-                color = Graphics.COLOR_DK_RED;
+                color = Graphics.COLOR_GREEN;
                 break;
             case CountDirectionType.Paused:
                 label = "Paused";

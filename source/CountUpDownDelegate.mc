@@ -82,8 +82,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
                     } else {
                         // Reset mode: reset timer to initial value
                         System.println("by reseting to the initial counter value ... ");
-                        //AleGaa TODO: set to initial value
-                        timerValue = 30; // hardcoded for now
+                        timerValue = Settings.getInterval();
                     }
                 }
                 else {
@@ -211,6 +210,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     function onConfirmed(confirmed) {
         System.println("onConfirmed(): confirmed = " + confirmed);
         if (confirmed == WatchUi.CONFIRM_YES) {
+            Settings.saveSettings();
             onExitCust();
         } else {
             // user cancelled
@@ -231,6 +231,11 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         //     title = "App Settings";
         // }
         // var menu = new WatchUi.Menu2({:title=>title});
+
+        menu.addItem(new WatchUi.MenuItem("Count Interval",
+                                          "(seconds)",
+                                          "count_interval",
+                                          {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_LEFT}));
 
         menu.addItem(new WatchUi.ToggleMenuItem("Count Direction",
                                                 {:enabled=>"Count Up", :disabled=>"Count Down"},

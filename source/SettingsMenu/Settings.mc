@@ -1,22 +1,23 @@
-using Toybox.Application;
+using Toybox.Application.Storage;
+using Toybox.Application.Properties;
 
 class Settings {
     // -------------------------------------------------
     // App version (read-only)
     // -------------------------------------------------
     static function getAppVersion() {
-        return Application.Properties.getValue("appVersion");
+        return Properties.getValue("appVersion");
     }
 
     // -------------------------------------------------
     // Count interval (seconds)
     // -------------------------------------------------
     static function getInterval() {
-        return Application.Properties.getValue("countInterval");
+        return Properties.getValue("countInterval");
     }
 
     static function setInterval(v) {
-        Application.Properties.setValue("countInterval", v);
+        Properties.setValue("countInterval", v);
     }
 
     // -------------------------------------------------
@@ -25,11 +26,11 @@ class Settings {
     // false = Count Down
     // -------------------------------------------------
     static function isCountingUp() {
-        return Application.Properties.getValue("countDirectionUp");
+        return Properties.getValue("countDirectionUp");
     }
 
     static function setCountingUp(v) {
-        Application.Properties.setValue("countDirectionUp", v);
+        Properties.setValue("countDirectionUp", v);
     }
 
     // -------------------------------------------------
@@ -38,11 +39,11 @@ class Settings {
     // false = One time
     // -------------------------------------------------
     static function isRepeated() {
-        return Application.Properties.getValue("countRepetitionMode");
+        return Properties.getValue("countRepetitionMode");
     }
 
     static function setRepeated(v) {
-        Application.Properties.setValue("countRepetitionMode", v);
+        Properties.setValue("countRepetitionMode", v);
     }
 
     // -------------------------------------------------
@@ -51,16 +52,30 @@ class Settings {
     // false = Reset mode
     // -------------------------------------------------
     static function isMirrored() {
-        return Application.Properties.getValue("countTypeMirrored");
+        return Properties.getValue("countTypeMirrored");
     }
 
     static function setMirrored(v) {
-        Application.Properties.setValue("countTypeMirrored", v);
+        Properties.setValue("countTypeMirrored", v);
+    }
+
+    static function loadSettings() {
+        Properties.setValue("countDirectionUp", Storage.getValue("countDirectionUp"));
+        Properties.setValue("countTypeMirrored", Storage.getValue("countTypeMirrored"));
+        Properties.setValue("countRepetitionMode", Storage.getValue("countRepetitionMode"));
+        Properties.setValue("countInterval", Storage.getValue("countInterval"));
+    }
+
+    static function saveSettings() {
+        Storage.setValue("countDirectionUp", isCountingUp());
+        Storage.setValue("countTypeMirrored", isMirrored());
+        Storage.setValue("countRepetitionMode", isRepeated());
+        Storage.setValue("countInterval", getInterval());
     }
     // // -------------------------------------------------
     // // Optional helpers
     // // -------------------------------------------------
     // static function resetToDefaults() {
-    //     Application.Properties.clearAll();
+    //     Properties.clearAll();
     // }
 }

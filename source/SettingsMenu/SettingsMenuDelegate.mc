@@ -15,6 +15,12 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     function onSelect(item as MenuItem) as Void {
         var id = item.getId().toString();
         // System.println("onSelect item called: " + id);
+        if (id.equals("count_interval")) {
+            // System.println("onSelect item called: " + id + " with value: " + item.getLabel());
+            WatchUi.pushView(new $.TimePicker(), new $.TimePickerDelegate(), WatchUi.SLIDE_IMMEDIATE);
+            // Show number picker for interval
+            // showIntervalPicker();
+        }
         if (item instanceof ToggleMenuItem) {
             System.println("onSelect item called: " + id + " with value: " + item.isEnabled());
 
@@ -69,12 +75,11 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     // -------------------------------------------------
     // function showIntervalPicker() {
 
-    //     var picker = new WatchUi.NumberPicker(
-    //         "Count Interval (sec)",
-    //         1,          // min
-    //         3600,       // max
-    //         Settings.getInterval()
-    //     );
+    //     var picker = new WatchUi.Picker();
+    //         // "Count Interval (sec)",
+    //         // 1,          // min
+    //         // 3600,       // max
+    //         // Settings.getInterval()
 
     //     WatchUi.pushView(
     //         picker,

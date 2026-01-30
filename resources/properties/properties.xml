@@ -2,7 +2,7 @@
 
     <properties>
         <property id="appVersion" type="string">1.0.0</property>
-        <property id="countInterval" type="number">10</property>
+        <property id="countInterval" type="number">30</property>
         <property id="countDirectionUp" type="boolean">true</property>
         <property id="countTypeMirrored" type="boolean">false</property>
         <property id="countRepetitionMode" type="boolean">true</property>
