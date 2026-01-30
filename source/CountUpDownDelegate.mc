@@ -3,10 +3,13 @@ import Toybox.WatchUi;
 import Toybox.Timer;
 import Toybox.Graphics;
 
+var isCountingUp = true;
+var isMirrored = false;
+var isRepeated = false;
+
 class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     private static var timerValue = 0;
     private var isCounting = false;
-    private var isCountingUp = true;
     private var oneSecTimer;
     private var appView = getView();
     static var isCountingUpOld = true;
@@ -14,13 +17,15 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
 
     function initialize()  {
         System.println("CountUpDownDelegate: initialize()");
+        Settings.setCountingUp(isCountingUp);
+        Settings.setMirrored(isMirrored);
+        Settings.setRepeated(isRepeated);
         oneSecTimer = new Timer.Timer();
         oneSecTimer.start(method(:oneSecondCyclicFunction), 1000, true);
-        appView.setCountingDirection(isCountingUp);
+        appView.setCountingParameters(isCountingUp, isMirrored, isRepeated);
         BehaviorDelegate.initialize();
         _dialogHeaderString = WatchUi.loadResource($.Rez.Strings.DialogHeader) as String;
     }
-
 
     function onSelect() as Boolean {
         System.println("onSelect()");
@@ -57,7 +62,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         //System.println("10: One Second Timer Callback called");
         
         if(isCounting == true) {
-            if (Settings.isCountingUp() == true) {
+            if (isCountingUp == true) {
                 timerValue += 1;
             } else {
                 timerValue -= 1;
@@ -65,10 +70,10 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
 
             if (timerValue <= 0) {
                 System.println("Timer reached zero");
-                if (Settings.isRepeated() == true) {
+                if (isRepeated == true) {
                     // Reset or Mirror counting based on mode
                     System.print("Repeat counting, ");
-                    if(Settings.isMirrored() == true) {
+                    if(isMirrored == true) {
                         // Mirror mode: reverse direction
                         System.println("by reversing the counting direction ... ");
                         isCountingUp = !isCountingUp;
@@ -78,7 +83,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
                         // Reset mode: reset timer to initial value
                         System.println("by reseting to the initial counter value ... ");
                         //AleGaa TODO: set to initial value
-                        timerValue = 100;
+                        timerValue = 30; // hardcoded for now
                     }
                 }
                 else {
@@ -102,7 +107,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
             }
             isCountingUpOld = isCountingUp;
         }
-        appView.setCountingDirection(isCountingUp);
+        appView.setCountingParameters(isCountingUp, isMirrored, isRepeated );
         appView.updateTimerValue(timerValue);
         WatchUi.requestUpdate();
     }
@@ -272,7 +277,7 @@ class DrawableMenuTitle extends WatchUi.Drawable {
     //! @param dc Device Context
     public function draw(dc as Dc) as Void {
         var spacing = 2;
-        var settingsIcon = WatchUi.loadResource($.Rez.Drawables.Gear) as BitmapResource;
+        var settingsIcon = WatchUi.loadResource($.Rez.Drawables.GearIcon) as BitmapResource;
         var bitmapWidth = settingsIcon.getWidth();
         var labelWidth = dc.getTextWidthInPixels("Settings", Graphics.FONT_SMALL);
 

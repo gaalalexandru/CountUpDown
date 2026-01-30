@@ -9,15 +9,28 @@ class CountUpDownView extends WatchUi.View {
     private var currentDirectionDescriptionElement;
     private var upArrowBitmap;
     private var downArrowBitmap;
+    private var repeatOnceBitmap;
+    private var repeatForeverBitmap;
+    private var countUpResetBitmap;
+    private var countDownResetBitmap;
+    private var countMirroredBitmap;
     private var screenWidth;
     private var screenHeight;
-    private var iconX;
-    private var iconY;
-    var isCountingUp = true;
+    private var iconXLeft;
+    private var iconXRight;
+    private var iconXCenter;
+    private var iconYTop;
+    private var iconYBottom;
+    private var isCountingUpView = false;
+    private var isRepeatedView = false;
+    private var isMirroredView = false;
 
     function initialize() {
         //System.println("4: App View initialized");
         View.initialize();
+        isCountingUpView = Settings.isCountingUp();
+        isRepeatedView = Settings.isRepeated();
+        isMirroredView = Settings.isMirrored();
     }
 
     // Load your resources here
@@ -31,12 +44,20 @@ class CountUpDownView extends WatchUi.View {
         currentDirectionDescriptionElement = findDrawableById("currentDirectionDescription") as Text;
         upArrowBitmap = WatchUi.loadResource(Rez.Drawables.UpIcon);
         downArrowBitmap = WatchUi.loadResource(Rez.Drawables.DownIcon);
+        repeatForeverBitmap = WatchUi.loadResource(Rez.Drawables.RepeatForeverIcon);
+        repeatOnceBitmap = WatchUi.loadResource(Rez.Drawables.RepeatOnceIcon);
+        countUpResetBitmap = WatchUi.loadResource(Rez.Drawables.CountUpResetIcon);
+        countDownResetBitmap = WatchUi.loadResource(Rez.Drawables.CountDownResetIcon);
+        countMirroredBitmap = WatchUi.loadResource(Rez.Drawables.CountMirroredIcon);
         screenWidth  = dc.getWidth();
         screenHeight = dc.getHeight();
 
         // Center the heart icon
-        iconX = ((screenWidth / 10 ) * 1.5 ) + (upArrowBitmap.getWidth() / 2);
-        iconY = ((screenHeight / 10 ) * 7 ) + (upArrowBitmap.getHeight() / 2);
+        iconXLeft = ((screenWidth / 10 ) * 1.5) + (upArrowBitmap.getWidth() / 2); //15% from left
+        iconXRight = ((screenWidth / 10 ) * 8 ) - (upArrowBitmap.getWidth() / 2); //80% from left or 20% from right :)
+        iconXCenter = (screenWidth / 2) - (countMirroredBitmap.getWidth() / 2); //centered
+        iconYTop = ((screenHeight / 10 ) * 6.8 ) + (upArrowBitmap.getHeight() / 2); //70% from top
+        iconYBottom = ((screenHeight / 10 ) * 8 ) + (countMirroredBitmap.getHeight() / 2); //80% from top
 
         // updateTimeOfTheDay();
         // updateTimerValue(158);
@@ -64,10 +85,26 @@ class CountUpDownView extends WatchUi.View {
         // Call the parent onUpdate function to redraw the layout
         
         View.onUpdate(dc);
-        if (isCountingUp == true) {
-            dc.drawBitmap(iconX, iconY, upArrowBitmap);
+        if (isCountingUpView == true) {
+            dc.drawBitmap(iconXLeft, iconYTop, upArrowBitmap);
         } else {
-            dc.drawBitmap(iconX, iconY, downArrowBitmap);
+            dc.drawBitmap(iconXLeft, iconYTop, downArrowBitmap);
+        }
+        
+        if (isRepeatedView == true) {
+            dc.drawBitmap(iconXRight,  iconYTop, repeatForeverBitmap);
+        } else {
+            dc.drawBitmap(iconXRight,  iconYTop, repeatOnceBitmap);
+        }
+
+        if (isMirroredView == true) {
+            dc.drawBitmap(iconXCenter,  iconYBottom, countMirroredBitmap);
+        } else {
+            if(isCountingUpView == true) {
+                dc.drawBitmap(iconXCenter,  iconYBottom, countUpResetBitmap);
+            } else {
+                dc.drawBitmap(iconXCenter,  iconYBottom, countDownResetBitmap);
+            }
         }
     }
 
@@ -119,9 +156,23 @@ class CountUpDownView extends WatchUi.View {
         // WatchUi.requestUpdate();
     }
 
-    function setCountingDirection(isUp) {
-        if (isCountingUp != isUp) {
-            isCountingUp = isUp;
+    function setCountingParameters(isUp, isMir, isRep) as Void {
+        var requestUpd = false;
+        if (isCountingUpView != isUp) {
+            isCountingUpView = isUp;
+        }
+
+        if (isMirroredView != isMir) {
+            isMirroredView = isMir;
+            requestUpd = true;
+        }
+
+        if (isRepeatedView != isRep) {
+            isRepeatedView   = isRep;
+            requestUpd = true;
+        }
+
+        if (requestUpd == true) {
             WatchUi.requestUpdate(); // redraw ONLY when changed
         }
     }

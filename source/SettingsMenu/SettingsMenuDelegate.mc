@@ -17,18 +17,21 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         // System.println("onSelect item called: " + id);
         if (item instanceof ToggleMenuItem) {
             System.println("onSelect item called: " + id + " with value: " + item.isEnabled());
-            
+
             if (id.equals("direction_toggle")) {
-                System.println("Count Up: " + item.isEnabled());
-                Settings.setCountingUp(item.isEnabled());
+                isCountingUp = item.isEnabled();
+                System.println("Count Up: " + isCountingUp);
+                Settings.setCountingUp(isCountingUp);
             }
             if (id.equals("type_toggle")) {
-                System.println("Mirror Mode: " + item.isEnabled());
-                Settings.setMirrored(item.isEnabled());
+                isMirrored = item.isEnabled();
+                System.println("Mirror Mode: " + isMirrored);
+                Settings.setMirrored(isMirrored);
             }
             if (id.equals("repeat_toggle")) {
-                System.println("Repeat Mode: " + item.isEnabled());
-                Settings.setRepeated(item.isEnabled());
+                isRepeated = item.isEnabled();
+                System.println("Repeat Mode: " + isRepeated);
+                Settings.setRepeated(isRepeated);
             }
         }
     }

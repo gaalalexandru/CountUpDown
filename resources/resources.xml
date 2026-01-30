@@ -8,7 +8,27 @@
         filename="images/down.png"
     />
     <bitmap
-        id="Gear"
+        id="GearIcon"
         filename="images/gear.png"
+    />
+    <bitmap
+        id="RepeatOnceIcon"
+        filename="images/repeat_once.png"
+    />
+    <bitmap
+        id="RepeatForeverIcon"
+        filename="images/repeat_forever.png"
+    />
+    <bitmap
+        id="CountUpResetIcon"
+        filename="images/count_up_reset.png"
+    />
+    <bitmap
+        id="CountDownResetIcon"
+        filename="images/count_down_reset.png"
+    />
+    <bitmap
+        id="CountMirroredIcon"
+        filename="images/count_mirrored.png"
     />
 </resources>

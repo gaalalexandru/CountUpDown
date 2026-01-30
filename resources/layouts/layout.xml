@@ -30,7 +30,7 @@
     <label
         id="currentDirectionDescription"
         x="center" 
-        y="70%"
+        y="68%"
         text="Paused"
         font="Graphics.FONT_SMALL"
         color="Graphics.COLOR_GREEN"
