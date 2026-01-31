@@ -3,6 +3,14 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.System;
 
+class CountDirectionType {
+    enum {
+        CountUp,
+        CountDown,
+        Paused
+    }
+}
+
 class CountUpDownApp extends Application.AppBase {
     private var appView;
     private var appDelegate;

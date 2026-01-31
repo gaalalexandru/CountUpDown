@@ -58,14 +58,22 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         isCounting = false;
     }
 
+    private function handleUpcount() as Void {
+        timerValue += 1;
+    }
+
+    private function handleDowncount() as Void {
+        timerValue -= 1;
+    }
+
     function oneSecondCyclicFunction() as Void {
         //System.println("10: One Second Timer Callback called");
         
         if(isCounting == true) {
             if (isCountingUp == true) {
-                timerValue += 1;
+                handleUpcount();
             } else {
-                timerValue -= 1;
+                handleDowncount();
             }
 
             if (timerValue <= 0) {

@@ -6,17 +6,13 @@
     <string id="menu_type">Count Type</string>
     <string id="DialogHeader">Confirm Exit?</string>
 
-    <string id="countIntervalPickerTitle">Pick a count interval</string>
 
-    <string id="countDirectionSubmenuTitle">Count Direction</string>
     <string id="menuCountUp">Count Up</string>
     <string id="menuCountDown">Count Down</string>
 
-    <string id="countModeSubmenuTitle">Count Mode</string>
     <string id="menuCountMirrored">Count Mirrored</string>
     <string id="menuCountReset">Count Reset</string>
 
-    <string id="countRepetitionSubmenuTitle">Count Repetition</string>
     <string id="menuCountSingle">Count Single</string>
     <string id="menuCountRepeated">Count Repeated</string>
 
