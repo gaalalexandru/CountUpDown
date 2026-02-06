@@ -26,16 +26,16 @@ class CountUpDownView extends WatchUi.View {
     private var isMirroredView = false;
 
     function initialize() {
-        //System.println("4: App View initialized");
+        System.println("4: App View initialized");
         View.initialize();
-        isCountingUpView = Settings.isCountingUp();
-        isRepeatedView = Settings.isRepeated();
-        isMirroredView = Settings.isMirrored();
+        isCountingUpView = Settings.getCountingUp();
+        isRepeatedView = Settings.getRepeated();
+        isMirroredView = Settings.getMirrored();
     }
 
     // Load your resources here
     function onLayout(dc as Dc) as Void {
-        //System.println("6: App View on Layout called");
+        System.println("6: App View on Layout called");
         setLayout(Rez.Layouts.MainLayout(dc));
         timeOfTheDayElement_hm = findDrawableById("timeHM") as Text;
         timeOfTheDayElement_sec = findDrawableById("timeSec") as Text;
@@ -70,12 +70,12 @@ class CountUpDownView extends WatchUi.View {
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() as Void {
-        //System.println("7: App View on Show called");
+        System.println("7: App View on Show called");
     }
 
     // Update the view
     function onUpdate(dc as Dc) as Void {
-        //System.println("8: App View on Update called");
+        System.println("8: App View on Update called");
         updateTimeOfTheDay();
 
         // var clockTime = System.getClockTime();
@@ -112,7 +112,7 @@ class CountUpDownView extends WatchUi.View {
     // state of this View here. This includes freeing resources from
     // memory.
     function onHide() as Void {
-        //System.println("9: App View on Hide called");
+        System.println("9: App View on Hide called");
     }
 
     function updateTimeOfTheDay() as Void {
@@ -151,7 +151,6 @@ class CountUpDownView extends WatchUi.View {
     function updateTimerValue(value) as Void {
         var minutes = (value / 60);
         var seconds = (value % 60);
-        // timerValue = value;
         currentTimerElement.setText(Lang.format("$1$:$2$", [ minutes.format("%02d"), seconds.format("%02d") ]));
         // WatchUi.requestUpdate();
     }

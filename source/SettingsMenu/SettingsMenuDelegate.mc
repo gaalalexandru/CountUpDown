@@ -14,7 +14,6 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     function onSelect(item as MenuItem) as Void {
         var id = item.getId().toString();
-        // System.println("onSelect item called: " + id);
         if (id.equals("count_interval")) {
             System.println("onSelect item called: " + id + " with value: " + item.getLabel());
             WatchUi.pushView(new $.TimePicker(), new $.TimePickerDelegate(), WatchUi.SLIDE_IMMEDIATE);
@@ -23,39 +22,15 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             System.println("onSelect item called: " + id + " with value: " + item.isEnabled());
 
             if (id.equals("direction_toggle")) {
-                isCountingUp = item.isEnabled();
-                System.println("Count Up: " + isCountingUp);
-                Settings.setCountingUp(isCountingUp);
+                Settings.setCountingUp(item.isEnabled());
             }
             if (id.equals("type_toggle")) {
-                isMirrored = item.isEnabled();
-                System.println("Mirror Mode: " + isMirrored);
-                Settings.setMirrored(isMirrored);
+                Settings.setMirrored(item.isEnabled());
             }
             if (id.equals("repeat_toggle")) {
-                isRepeated = item.isEnabled();
-                System.println("Repeat Mode: " + isRepeated);
-                Settings.setRepeated(isRepeated);
+                Settings.setRepeated(item.isEnabled());
             }
         }
+        appDelegate.updateVariables();
     }
-
-    // function onMenuItem(item) {
-    //     var id = item.getId().toString();
-    //     System.println("onSelect item called: " + id);
-    //     switch (item) {
-    //     case "interval":
-    //         System.println("onMenuItem interval");
-    //         break;
-    //     case "direction":
-    //         System.println("onMenuItem direction");
-    //         break;
-    //     case "repetition":  
-    //         System.println("onMenuItem repetition");
-    //         break;
-    //     case "type":
-    //         System.println("onMenuItem type");
-    //         break;
-    //     }
-    // }
 }
