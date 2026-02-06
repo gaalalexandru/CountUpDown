@@ -75,7 +75,7 @@ class CountUpDownView extends WatchUi.View {
 
     // Update the view
     function onUpdate(dc as Dc) as Void {
-        System.println("8: App View on Update called");
+        // System.println("8: App View on Update called");
         updateTimeOfTheDay();
 
         // var clockTime = System.getClockTime();

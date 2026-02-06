@@ -122,7 +122,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function oneSecondCyclicFunction() as Void {
-        System.println("10: One Second Timer Callback called");
+        // System.println("10: One Second Timer Callback called");
         
         if(isCounting == true) {
             if (isCountingUp == true) {
