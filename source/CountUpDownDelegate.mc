@@ -3,6 +3,7 @@ import Toybox.WatchUi;
 import Toybox.Timer;
 import Toybox.Graphics;
 using Toybox.Application.Properties;
+using Toybox.Attention;
 // using Toybox.Application.Storage;
 
 var isCountingUp;
@@ -16,6 +17,16 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     private var appView = getView();
     static var isCountingUpOld = true;
     private var _dialogHeaderString as String;
+
+    var vibrateData1 = [
+            new Attention.VibeProfile(75, 200),
+            new Attention.VibeProfile(00, 400),
+            new Attention.VibeProfile(75, 200)
+            ];
+
+    var vibrateData2 = [
+            new Attention.VibeProfile(75, 500)
+            ];
 
     function initialize()  {
         System.println("CountUpDownDelegate: initialize()");
@@ -66,6 +77,8 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         }
         else {
             timerValue = targetTimerValue;
+            Attention.playTone(Attention.TONE_TIME_ALERT);
+            Attention.vibrate(self.vibrateData1);            
             if (isRepeated == true) {
                 // Reset or Mirror counting based on mode
                 System.print("Repeat counting, ");
@@ -97,6 +110,9 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         }
         else {
             timerValue = 0;
+            Attention.playTone(Attention.TONE_INTERVAL_ALERT);
+            Attention.vibrate(vibrateData2);
+            // Attention.vibrate(Attention.VIBE_ALERT);
             if (isRepeated == true) {
                     // Reset or Mirror counting based on mode
                     System.print("Repeat counting, ");
@@ -143,6 +159,19 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
             }
             isCountingUpOld = isCountingUp;
         }
+        var from = 0;
+        var to = 0;
+        if(isCountingUp == true) {
+            from = 0;
+            to = Settings.getInterval();
+            System.println("Timer Value: " + timerValue);
+        }
+        else {
+            from = Settings.getInterval();
+            to = 0;
+            System.println("Timer Value: " + timerValue);
+        }
+        appView.updataCountFromToElement(from,to);
         appView.setCountingParameters(isCountingUp, isMirrored, isRepeated );
         appView.updateTimerValue(timerValue);
         WatchUi.requestUpdate();

@@ -6,6 +6,7 @@ class CountUpDownView extends WatchUi.View {
     private var timeOfTheDayElement_hm;
     private var timeOfTheDayElement_sec;
     private var currentTimerElement;
+    private var countFromToElement;
     private var currentDirectionDescriptionElement;
     private var upArrowBitmap;
     private var downArrowBitmap;
@@ -40,7 +41,8 @@ class CountUpDownView extends WatchUi.View {
         timeOfTheDayElement_hm = findDrawableById("timeHM") as Text;
         timeOfTheDayElement_sec = findDrawableById("timeSec") as Text;
 
-        currentTimerElement = findDrawableById("currentTimer") as Text;
+        currentTimerElement = findDrawableById("currentTimerLabel") as Text;
+        countFromToElement = findDrawableById("countFromToLabel") as Text;
         currentDirectionDescriptionElement = findDrawableById("currentDirectionDescription") as Text;
         upArrowBitmap = WatchUi.loadResource(Rez.Drawables.UpIcon);
         downArrowBitmap = WatchUi.loadResource(Rez.Drawables.DownIcon);
@@ -64,6 +66,10 @@ class CountUpDownView extends WatchUi.View {
         // updateCurrentDirectionDescription(CountDirectionType.CountDown);
         // updateCurrentDirectionDescription(1);
 
+    }
+
+    function updataCountFromToElement(from, to) as Void {
+        countFromToElement.setText(Lang.format("$1$ $2$ $3$ $4$", ["From: ", from, " to: ", to]));
     }
 
     // Called when this View is brought to the foreground. Restore

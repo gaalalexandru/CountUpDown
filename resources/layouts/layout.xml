@@ -2,7 +2,7 @@
     <label
         id="timeHM"
         x="56%"
-        y="15%"
+        y="9%"
         text="--:--"
         font="Graphics.FONT_MEDIUM"
         color="Graphics.COLOR_BLUE"
@@ -12,14 +12,25 @@
     <label
         id="timeSec"
         x="56%"
-        y="18%"
+        y="12%"
         text=":--"
         font="Graphics.FONT_TINY"
         color="Graphics.COLOR_BLUE"
         justification="Graphics.TEXT_JUSTIFY_LEFT"
     />
+
     <label
-        id="currentTimer"
+        id="countFromToLabel"
+        x="center"
+        y="23%"
+        text="__:__ -> __:__"
+        font="Graphics.FONT_TINY"
+        color="Graphics.COLOR_BLUE"
+        justification="Graphics.TEXT_JUSTIFY_CENTER"
+    />
+
+    <label
+        id="currentTimerLabel"
         x="center" 
         y="center"
         text="00:00"
@@ -27,6 +38,7 @@
         color="Graphics.COLOR_YELLOW"
         justification="Graphics.TEXT_JUSTIFY_CENTER"
     />
+
     <label
         id="currentDirectionDescription"
         x="center" 
