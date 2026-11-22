@@ -70,15 +70,23 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         isCounting = false;
     }
 
+    private function alertAtEndpoint(tone, vibrationProfile) as Void {
+        if (Settings.getBeepEnabled() && (Attention has :playTone)) {
+            Attention.playTone(tone);
+        }
+        if (Settings.getVibrateEnabled() && (Attention has :vibrate)) {
+            Attention.vibrate(vibrationProfile);
+        }
+    }
+
     private function handleUpcount() as Void {
         var targetTimerValue = Settings.getInterval();
         if(timerValue < targetTimerValue) {
             timerValue += 1;
         }
-        else {
+        if (timerValue >= targetTimerValue) {
             timerValue = targetTimerValue;
-            Attention.playTone(Attention.TONE_TIME_ALERT);
-            Attention.vibrate(self.vibrateData1);            
+            alertAtEndpoint(Attention.TONE_TIME_ALERT, vibrateData1);
             if (isRepeated == true) {
                 // Reset or Mirror counting based on mode
                 Utils.logWithNewline("Repeat counting, ", false);
@@ -108,11 +116,9 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         if(timerValue > 0) {
             timerValue -= 1;
         }
-        else {
+        if (timerValue <= 0) {
             timerValue = 0;
-            Attention.playTone(Attention.TONE_INTERVAL_ALERT);
-            Attention.vibrate(vibrateData2);
-            // Attention.vibrate(Attention.VIBE_ALERT);
+            alertAtEndpoint(Attention.TONE_INTERVAL_ALERT, vibrateData2);
             if (isRepeated == true) {
                     // Reset or Mirror counting based on mode
                     Utils.logWithNewline("Repeat counting, ", false);
@@ -314,6 +320,16 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
                                                 :disabled=>"One Time"},
                                                 "repeat_toggle",
                                                 Settings.getRepeated(),
+                                                {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_LEFT}));
+
+        menu.addItem(new WatchUi.ToggleMenuItem("Beep",
+                                                {:enabled=>"On", :disabled=>"Off"},
+                                                "beep_toggle", Settings.getBeepEnabled(),
+                                                {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_LEFT}));
+
+        menu.addItem(new WatchUi.ToggleMenuItem("Vibrate",
+                                                {:enabled=>"On", :disabled=>"Off"},
+                                                "vibrate_toggle", Settings.getVibrateEnabled(),
                                                 {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_LEFT}));
 
         WatchUi.pushView(menu, new $.SettingsMenuDelegate(), WatchUi.SLIDE_UP);

@@ -84,6 +84,22 @@ class Settings {
         Properties.setValue("countTypeMirrored", v);
     }
 
+    static function getBeepEnabled() {
+        return Properties.getValue("beepEnabled");
+    }
+
+    static function setBeepEnabled(enabled) {
+        Properties.setValue("beepEnabled", enabled);
+    }
+
+    static function getVibrateEnabled() {
+        return Properties.getValue("vibrateEnabled");
+    }
+
+    static function setVibrateEnabled(enabled) {
+        Properties.setValue("vibrateEnabled", enabled);
+    }
+
     static function loadSettings() {
         Utils.log("Settings: Loading settings from storage");
         var isCountingUp = Storage.getValue("countDirectionUp");

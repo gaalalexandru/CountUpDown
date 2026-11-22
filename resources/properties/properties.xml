@@ -6,6 +6,8 @@
         <property id="countDirectionUp" type="boolean">true</property>
         <property id="countTypeMirrored" type="boolean">false</property>
         <property id="countRepetitionMode" type="boolean">true</property>
+        <property id="beepEnabled" type="boolean">true</property>
+        <property id="vibrateEnabled" type="boolean">true</property>
     </properties>
 
     <!-- <settings>

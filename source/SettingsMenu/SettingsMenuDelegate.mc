@@ -30,6 +30,12 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             if (id.equals("repeat_toggle")) {
                 Settings.setRepeated(item.isEnabled());
             }
+            if (id.equals("beep_toggle")) {
+                Settings.setBeepEnabled(item.isEnabled());
+            }
+            if (id.equals("vibrate_toggle")) {
+                Settings.setVibrateEnabled(item.isEnabled());
+            }
         }
         appDelegate.updateVariables();
     }
