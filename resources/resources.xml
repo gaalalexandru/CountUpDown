@@ -19,6 +19,10 @@
         id="RepeatForeverIcon"
         filename="images/repeat_forever.png"
     />
+    <bitmap id="SpeakerOnIcon" filename="images/speaker_on.png"/>
+    <bitmap id="SpeakerOffIcon" filename="images/speaker_off.png"/>
+    <bitmap id="VibrationOnIcon" filename="images/vibration_on.png"/>
+    <bitmap id="VibrationOffIcon" filename="images/vibration_off.png"/>
     <bitmap
         id="CountUpResetIcon"
         filename="images/count_up_reset.png"
