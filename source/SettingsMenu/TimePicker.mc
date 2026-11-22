@@ -103,7 +103,7 @@ class TimePickerDelegate extends WatchUi.PickerDelegate {
     public function onAccept(values as Array) as Boolean {
         var min = values[0] as Number;
         var sec = values[2] as Number;
-        System.println("TimePickerDelegate.onAccept: min=" + min + " sec=" + sec);
+        Utils.log("TimePickerDelegate.onAccept: min=" + min + " sec=" + sec);
         
         // var time = min + (WatchUi.loadResource($.Rez.Strings.timeSeparator) as String) + sec.format($.TWO_DECIMAL_FORMAT);
         var time = (min * 60) + sec;

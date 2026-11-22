@@ -15,7 +15,7 @@ class ConfirmationDialogDelegate extends WatchUi.ConfirmationDelegate {
     //! Constructor
     //! @param view The app view
     public function initialize(caller, callback) {
-        System.println("ConfirmationDialogDelegate: initialize()");
+        Utils.log("ConfirmationDialogDelegate: initialize()");
         
         ConfirmationDelegate.initialize();
         _caller = caller;
@@ -26,11 +26,11 @@ class ConfirmationDialogDelegate extends WatchUi.ConfirmationDelegate {
     //! @param value The confirmation value
     //! @return true if handled, false otherwise
     public function onResponse(value as Confirm) as Boolean {
-        System.println("ConfirmationDialogDelegate: onResponse() value = " + value);
+        Utils.log("ConfirmationDialogDelegate: onResponse() value = " + value);
         if (value == WatchUi.CONFIRM_NO) {
-            System.println("ConfirmationDialogDelegate: onResponse() CONFIRM_NO");
+            Utils.log("ConfirmationDialogDelegate: onResponse() CONFIRM_NO");
         } else {
-            System.println("ConfirmationDialogDelegate: onResponse() CONFIRM_YES");
+            Utils.log("ConfirmationDialogDelegate: onResponse() CONFIRM_YES");
         }
         // Signal back
         _callback.invoke(value);

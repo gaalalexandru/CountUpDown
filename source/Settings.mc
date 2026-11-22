@@ -85,13 +85,13 @@ class Settings {
     }
 
     static function loadSettings() {
-        System.println("Settings: Loading settings from storage");
+        Utils.log("Settings: Loading settings from storage");
         var isCountingUp = Storage.getValue("countDirectionUp");
         var isMirrored = Storage.getValue("countTypeMirrored");
         var isRepeated = Storage.getValue("countRepetitionMode");
         var timerValue = Storage.getValue("countInterval");
-        System.println("Loaded Settings: isCountingUp = " + isCountingUp + ", isMirrored = " + isMirrored + ", isRepeated = " + isRepeated);
-        System.println("Loaded timerValue = " + timerValue);
+        Utils.log("Loaded Settings: isCountingUp = " + isCountingUp + ", isMirrored = " + isMirrored + ", isRepeated = " + isRepeated);
+        Utils.log("Loaded timerValue = " + timerValue);
 
         setCountingUp(isCountingUp);
         setMirrored(isMirrored);
@@ -100,7 +100,7 @@ class Settings {
     }
 
     static function saveSettings() {
-        System.println("Settings: Saving settings to storage");
+        Utils.log("Settings: Saving settings to storage");
         Storage.setValue("countDirectionUp", getCountingUp());
         Storage.setValue("countTypeMirrored", getMirrored());
         Storage.setValue("countRepetitionMode", getRepeated());

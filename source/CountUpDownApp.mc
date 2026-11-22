@@ -16,51 +16,51 @@ class CountUpDownApp extends Application.AppBase {
     private var appDelegate;
 
     function initialize() {
-        System.println("CountUpDownApp: initialize()");
+        Utils.log("CountUpDownApp: initialize()");
         AppBase.initialize();
     }
 
     // onStart() is called on application start up
     function onStart(state as Dictionary?) as Void {
-        System.println("CountUpDownApp: onStart()");
+        Utils.log("CountUpDownApp: onStart()");
         Settings.loadSettings();
     }
 
     // onStop() is called when your application is exiting
     function onStop(state as Dictionary?) as Void {
-        System.println("CountUpDownApp: onStop()");
+        Utils.log("CountUpDownApp: onStop()");
     }
 
     // Return the initial view of your application here
     function getInitialView() as [Views] or [Views, InputDelegates] {
         appView = new CountUpDownView();
         appDelegate = new CountUpDownDelegate();
-        System.println("CountUpDownApp: getInitialView()");
+        Utils.log("CountUpDownApp: getInitialView()");
         return [ appView, appDelegate ];
     }
 
     function getView() {
-        System.println("CountUpDownApp: getView()");
+        Utils.log("CountUpDownApp: getView()");
         return appView;
     }
 
     function getDelegate() {
-        System.println("CountUpDownApp: getDelegate()");
+        Utils.log("CountUpDownApp: getDelegate()");
         return appDelegate;
     }
 }
 
 function getApp() as CountUpDownApp {
-    System.println("CountUpDownApp: Getting App instance");
+    Utils.log("CountUpDownApp: Getting App instance");
     return Application.getApp() as CountUpDownApp;
 }
 
 function getView() as CountUpDownView {
-    System.println("CountUpDownApp: Getting View instance");
+    Utils.log("CountUpDownApp: Getting View instance");
     return Application.getApp().getView() as CountUpDownView;
 }
 
 function getDelegate() as CountUpDownDelegate {
-    System.println("CountUpDownApp: Getting Delegate instance");
+    Utils.log("CountUpDownApp: Getting Delegate instance");
     return Application.getApp().getDelegate() as CountUpDownDelegate;
 }

@@ -29,13 +29,13 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
             ];
 
     function initialize()  {
-        System.println("CountUpDownDelegate: initialize()");
+        Utils.log("CountUpDownDelegate: initialize()");
         isCountingUp = Settings.getCountingUp();
         isMirrored = Settings.getMirrored();
         isRepeated = Settings.getRepeated();
         timerValue = Settings.getInterval();
-        System.println("Initial Settings: isCountingUp = " + isCountingUp + ", isMirrored = " + isMirrored + ", isRepeated = " + isRepeated);
-        System.println("Initial timerValue = " + timerValue);
+        Utils.log("Initial Settings: isCountingUp = " + isCountingUp + ", isMirrored = " + isMirrored + ", isRepeated = " + isRepeated);
+        Utils.log("Initial timerValue = " + timerValue);
         oneSecTimer = new Timer.Timer();
         oneSecTimer.start(method(:oneSecondCyclicFunction), 1000, true);
         appView.setCountingParameters(isCountingUp, isMirrored, isRepeated);
@@ -44,7 +44,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onSelect() as Boolean {
-        System.println("onSelect()");
+        Utils.log("onSelect()");
         if(isCounting == false) {
             startCounting();
             if (isCountingUp) {
@@ -61,12 +61,12 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function startCounting() as Void {
-        System.println("startCounting()");
+        Utils.log("startCounting()");
         isCounting = true;
     }
 
     function stopCounting() as Void {
-        System.println("stopCounting()");
+        Utils.log("stopCounting()");
         isCounting = false;
     }
 
@@ -81,23 +81,23 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
             Attention.vibrate(self.vibrateData1);            
             if (isRepeated == true) {
                 // Reset or Mirror counting based on mode
-                System.print("Repeat counting, ");
+                Utils.logWithNewline("Repeat counting, ", false);
                 if(isMirrored == true) {
                     // Mirror mode: reverse direction
-                    System.println("by reversing the counting direction ... ");
+                    Utils.log("by reversing the counting direction ... ");
                     isCountingUp = false;
                     Settings.setCountingUp(isCountingUp);
-                    System.println("isCountingUp = " + isCountingUp);
+                    Utils.log("isCountingUp = " + isCountingUp);
                 } else {
                     // Reset mode: reset timer to zero
-                    System.println("by reseting to zero ... ");
+                    Utils.log("by reseting to zero ... ");
                     timerValue = 0;
                 }
             }
             else
             {
                 // One-time counting, stop at target value
-                System.println("One-time counting, stopping at target value ... ");
+                Utils.log("One-time counting, stopping at target value ... ");
                 appView.updateCurrentDirectionDescription(CountDirectionType.Paused);
                 stopCounting();
             }
@@ -115,22 +115,22 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
             // Attention.vibrate(Attention.VIBE_ALERT);
             if (isRepeated == true) {
                     // Reset or Mirror counting based on mode
-                    System.print("Repeat counting, ");
+                    Utils.logWithNewline("Repeat counting, ", false);
                     if(isMirrored == true) {
                         // Mirror mode: reverse direction
-                        System.println("by reversing the counting direction ... ");
+                        Utils.log("by reversing the counting direction ... ");
                         isCountingUp = true;
                         Settings.setCountingUp(isCountingUp);
-                        System.println("isCountingUp = " + isCountingUp);
+                        Utils.log("isCountingUp = " + isCountingUp);
                     } else {
                         // Reset mode: reset timer to initial value
-                        System.println("by reseting to the initial counter value ... ");
+                        Utils.log("by reseting to the initial counter value ... ");
                         timerValue = Settings.getInterval();
                     }
             }
             else {
                 // One-time counting, stop at zero
-                System.println("One-time counting, stopping at zero ... ");
+                Utils.log("One-time counting, stopping at zero ... ");
                 appView.updateCurrentDirectionDescription(CountDirectionType.Paused);
                 stopCounting();
             }
@@ -138,7 +138,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function oneSecondCyclicFunction() as Void {
-        // System.println("10: One Second Timer Callback called");
+        // Utils.log("10: One Second Timer Callback called");
         
         if(isCounting == true) {
             if (isCountingUp == true) {
@@ -151,10 +151,10 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         if (isCountingUp != isCountingUpOld) {
             // Direction changed, update description
             if (isCountingUp) {
-                System.println("Direction changed to Counting Up");
+                Utils.log("Direction changed to Counting Up");
                 appView.updateCurrentDirectionDescription(CountDirectionType.CountUp);
             } else {
-                System.println("Direction changed to Counting Down");
+                Utils.log("Direction changed to Counting Down");
                 appView.updateCurrentDirectionDescription(CountDirectionType.CountDown);
             }
             isCountingUpOld = isCountingUp;
@@ -164,12 +164,12 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         if(isCountingUp == true) {
             from = 0;
             to = Settings.getInterval();
-            System.println("Timer Value: " + timerValue);
+            Utils.log("Timer Value: " + timerValue);
         }
         else {
             from = Settings.getInterval();
             to = 0;
-            System.println("Timer Value: " + timerValue);
+            Utils.log("Timer Value: " + timerValue);
         }
         appView.updataCountFromToElement(from,to);
         appView.setCountingParameters(isCountingUp, isMirrored, isRepeated );
@@ -178,7 +178,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onIncrease() {
-        System.println("onIncrease()");
+        Utils.log("onIncrease()");
         if (isCountingUp == false) {
             isCountingUp = true;
             Settings.setCountingUp(isCountingUp);
@@ -187,7 +187,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onDecrease() {
-        System.println("onDecrease()");
+        Utils.log("onDecrease()");
         if (isCountingUp == true) {
             isCountingUp = false;
             Settings.setCountingUp(isCountingUp);
@@ -197,7 +197,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
 
     function onExit() {
         // Clean up timer
-        System.println("onExit called");
+        Utils.log("onExit called");
         if (isCounting == false) {
             isCountingUp = true;
             startCounting();
@@ -207,7 +207,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
 
     public function onKey(evt as KeyEvent) as Boolean {
         var key = evt.getKey();
-        System.println("Key Event received: " + key);
+        Utils.log("Key Event received: " + key);
         if (key == WatchUi.KEY_UP) {
             onIncrease();
             return true;
@@ -219,13 +219,13 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         }
 
         if (key == WatchUi.KEY_ENTER) {
-            System.println("KEY_ENTER pressed");
+            Utils.log("KEY_ENTER pressed");
             onSelect();
             return true;
         }
 
         if (key == WatchUi.KEY_ESC) {
-            System.println("KEY_ESC pressed");
+            Utils.log("KEY_ESC pressed");
             return handleBack();
         }
         return false;
@@ -234,7 +234,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     function onSwipe(evt) {
         var direction = evt.getDirection();
 
-        System.println("Swipe Event received: " + direction);
+        Utils.log("Swipe Event received: " + direction);
 
 
         if (direction == WatchUi.SWIPE_UP) {
@@ -256,7 +256,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function handleBack() {
-        System.println("handleBack(), isCounting = " + isCounting);
+        Utils.log("handleBack(), isCounting = " + isCounting);
         if (isCounting == false) {
             confirmExit();
             return true;
@@ -273,18 +273,18 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onConfirmed(confirmed) {
-        System.println("onConfirmed(): confirmed = " + confirmed);
+        Utils.log("onConfirmed(): confirmed = " + confirmed);
         if (confirmed == WatchUi.CONFIRM_YES) {
             Settings.saveSettings();
             onExitCust();
         } else {
             // user cancelled
-            System.println("User chose not to exit");
+            Utils.log("User chose not to exit");
         }
     }
 
     function onExitCust() {
-        System.println("Exiting application");
+        Utils.log("Exiting application");
         System.exit();
     }
     

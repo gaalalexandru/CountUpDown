@@ -27,7 +27,7 @@ class CountUpDownView extends WatchUi.View {
     private var isMirroredView = false;
 
     function initialize() {
-        System.println("4: App View initialized");
+        Utils.log("4: App View initialized");
         View.initialize();
         isCountingUpView = Settings.getCountingUp();
         isRepeatedView = Settings.getRepeated();
@@ -36,7 +36,7 @@ class CountUpDownView extends WatchUi.View {
 
     // Load your resources here
     function onLayout(dc as Dc) as Void {
-        System.println("6: App View on Layout called");
+        Utils.log("6: App View on Layout called");
         setLayout(Rez.Layouts.MainLayout(dc));
         timeOfTheDayElement_hm = findDrawableById("timeHM") as Text;
         timeOfTheDayElement_sec = findDrawableById("timeSec") as Text;
@@ -76,12 +76,12 @@ class CountUpDownView extends WatchUi.View {
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() as Void {
-        System.println("7: App View on Show called");
+        Utils.log("7: App View on Show called");
     }
 
     // Update the view
     function onUpdate(dc as Dc) as Void {
-        // System.println("8: App View on Update called");
+        // Utils.log("8: App View on Update called");
         updateTimeOfTheDay();
 
         // var clockTime = System.getClockTime();
@@ -118,7 +118,7 @@ class CountUpDownView extends WatchUi.View {
     // state of this View here. This includes freeing resources from
     // memory.
     function onHide() as Void {
-        System.println("9: App View on Hide called");
+        Utils.log("9: App View on Hide called");
     }
 
     function updateTimeOfTheDay() as Void {
