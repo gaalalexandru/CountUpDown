@@ -322,10 +322,12 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
                                                 Settings.getRepeated(),
                                                 {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_LEFT}));
 
-        menu.addItem(new WatchUi.ToggleMenuItem("Beep",
-                                                {:enabled=>"On", :disabled=>"Off"},
-                                                "beep_toggle", Settings.getBeepEnabled(),
-                                                {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_LEFT}));
+        if (Attention has :playTone) {
+            menu.addItem(new WatchUi.ToggleMenuItem("Beep",
+                                                    {:enabled=>"On", :disabled=>"Off"},
+                                                    "beep_toggle", Settings.getBeepEnabled(),
+                                                    {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_LEFT}));
+        }
 
         menu.addItem(new WatchUi.ToggleMenuItem("Vibrate",
                                                 {:enabled=>"On", :disabled=>"Off"},
