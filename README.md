@@ -33,10 +33,12 @@ Selecting a direction that is already active leaves the running/paused state alo
             From: 30 to: 0       range in seconds
                 00:17            current counter in minutes:seconds
               Count Down         direction or Paused
-           [↓]   [reset]   [1]   direction · count type · repetition
+        [↓] [reset] [1]  [vibrate]
 ```
 
-This sketch shows the rectangular Venu Sq layout. The clock and range are blue, and the large timer is yellow. The arrow shows direction, the middle symbol shows reset or mirrored counting, and the right symbol shows single or repeated counting. On rectangular screens the three icons sit below the direction text. On round screens the direction and repeat icons flank the status area, with the count-type icon centered below.
+This sketch shows the rectangular Venu Sq layout. The clock and range are blue, and the large timer is yellow. Below the direction text, read the icons from left to right: direction, reset/mirrored mode, repetition, then alert settings. On the round fēnix targets, direction and repetition flank the status text; the lower row shows the speaker, reset/mirror symbol, and vibration indicator.
+
+A red slash means that alert is switched off in the app. The speaker appears only on devices that support tones; the Venu Sq and Sq 2 show just the vibration indicator for alerts.
 
 ### Settings
 

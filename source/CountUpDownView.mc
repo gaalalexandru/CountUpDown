@@ -1,3 +1,4 @@
+import Toybox.Attention;
 import Toybox.Graphics;
 import Toybox.WatchUi;
 import Toybox.System;
@@ -15,6 +16,9 @@ class CountUpDownView extends WatchUi.View {
     private var countUpResetBitmap;
     private var countDownResetBitmap;
     private var countMirroredBitmap;
+    private var supportsTones = (Attention has :playTone);
+    private var speakerBitmap;
+    private var vibrationBitmap;
     private var screenWidth;
     private var screenHeight;
     private var iconXLeft;
@@ -22,6 +26,8 @@ class CountUpDownView extends WatchUi.View {
     private var iconXCenter;
     private var iconYTop;
     private var iconYBottom;
+    private var speakerX;
+    private var vibrationX;
     private var isCountingUpView = false;
     private var isRepeatedView = false;
     private var isMirroredView = false;
@@ -58,19 +64,31 @@ class CountUpDownView extends WatchUi.View {
         screenWidth  = dc.getWidth();
         screenHeight = dc.getHeight();
 
-        iconXCenter = (screenWidth - countMirroredBitmap.getWidth()) / 2;
+        var modeWidth = countMirroredBitmap.getWidth();
+        var smallWidth = repeatOnceBitmap.getWidth(); // Repeat and alert icons are all 20 px.
+        var gap = 4;
+        var labelBottom = currentDirectionDescriptionElement.locY + dc.getFontHeight(Graphics.FONT_SMALL);
         if (System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_RECTANGLE) {
-            // Give the status label its own line and group all three icons below it.
-            var labelBottom = currentDirectionDescriptionElement.locY + dc.getFontHeight(Graphics.FONT_SMALL);
+            // Center the mode icons and alert indicators together below the status label.
             iconYBottom = (labelBottom + screenHeight - countMirroredBitmap.getHeight()) / 2;
             iconYTop = iconYBottom;
-            iconXLeft = screenWidth / 4 - upArrowBitmap.getWidth() / 2;
-            iconXRight = 3 * screenWidth / 4 - repeatOnceBitmap.getWidth() / 2;
+            var alertWidth = supportsTones ? 2 * smallWidth + gap : smallWidth;
+            var rowWidth = upArrowBitmap.getWidth() + modeWidth + smallWidth + alertWidth + 4 * gap;
+            iconXLeft = (screenWidth - rowWidth) / 2;
+            iconXCenter = iconXLeft + upArrowBitmap.getWidth() + gap;
+            iconXRight = iconXCenter + modeWidth + gap;
+            var alertLeft = iconXRight + smallWidth + 2 * gap;
+            speakerX = alertLeft;
+            vibrationX = supportsTones ? alertLeft + smallWidth + gap : alertLeft;
         } else {
             iconXLeft = ((screenWidth / 10) * 1.5) + (upArrowBitmap.getWidth() / 2);
             iconXRight = ((screenWidth / 10) * 8) - (upArrowBitmap.getWidth() / 2);
             iconYTop = ((screenHeight / 10) * 6.8) + (upArrowBitmap.getHeight() / 2);
-            iconYBottom = ((screenHeight / 10) * 8) + (countMirroredBitmap.getHeight() / 2);
+            // Keep the whole bottom row inside the round bezel, including on the 7S.
+            iconYBottom = labelBottom + gap;
+            iconXCenter = (screenWidth - modeWidth) / 2;
+            speakerX = iconXCenter - gap - smallWidth;
+            vibrationX = iconXCenter + modeWidth + gap;
         }
     }
 
@@ -83,6 +101,10 @@ class CountUpDownView extends WatchUi.View {
     // loading resources into memory.
     function onShow() as Void {
         Utils.log("7: App View on Show called");
+        if (supportsTones) {
+            speakerBitmap = WatchUi.loadResource(Settings.getBeepEnabled() ? Rez.Drawables.SpeakerOnIcon : Rez.Drawables.SpeakerOffIcon);
+        }
+        vibrationBitmap = WatchUi.loadResource(Settings.getVibrateEnabled() ? Rez.Drawables.VibrationOnIcon : Rez.Drawables.VibrationOffIcon);
     }
 
     // Update the view
@@ -97,6 +119,10 @@ class CountUpDownView extends WatchUi.View {
         // Call the parent onUpdate function to redraw the layout
         
         View.onUpdate(dc);
+        if (supportsTones) {
+            dc.drawBitmap(speakerX, iconYBottom, speakerBitmap);
+        }
+        dc.drawBitmap(vibrationX, iconYBottom, vibrationBitmap);
         if (isCountingUpView == true) {
             dc.drawBitmap(iconXLeft, iconYTop, upArrowBitmap);
         } else {
