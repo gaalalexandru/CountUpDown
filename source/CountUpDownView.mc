@@ -54,18 +54,20 @@ class CountUpDownView extends WatchUi.View {
         screenWidth  = dc.getWidth();
         screenHeight = dc.getHeight();
 
-        // Center the heart icon
-        iconXLeft = ((screenWidth / 10 ) * 1.5) + (upArrowBitmap.getWidth() / 2); //15% from left
-        iconXRight = ((screenWidth / 10 ) * 8 ) - (upArrowBitmap.getWidth() / 2); //80% from left or 20% from right :)
-        iconXCenter = (screenWidth / 2) - (countMirroredBitmap.getWidth() / 2); //centered
-        iconYTop = ((screenHeight / 10 ) * 6.8 ) + (upArrowBitmap.getHeight() / 2); //70% from top
-        iconYBottom = ((screenHeight / 10 ) * 8 ) + (countMirroredBitmap.getHeight() / 2); //80% from top
-
-        // updateTimeOfTheDay();
-        // updateTimerValue(158);
-        // updateCurrentDirectionDescription(CountDirectionType.CountDown);
-        // updateCurrentDirectionDescription(1);
-
+        iconXCenter = (screenWidth - countMirroredBitmap.getWidth()) / 2;
+        if (System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_RECTANGLE) {
+            // Give the status label its own line and group all three icons below it.
+            var labelBottom = currentDirectionDescriptionElement.locY + dc.getFontHeight(Graphics.FONT_SMALL);
+            iconYBottom = (labelBottom + screenHeight - countMirroredBitmap.getHeight()) / 2;
+            iconYTop = iconYBottom;
+            iconXLeft = screenWidth / 4 - upArrowBitmap.getWidth() / 2;
+            iconXRight = 3 * screenWidth / 4 - repeatOnceBitmap.getWidth() / 2;
+        } else {
+            iconXLeft = ((screenWidth / 10) * 1.5) + (upArrowBitmap.getWidth() / 2);
+            iconXRight = ((screenWidth / 10) * 8) - (upArrowBitmap.getWidth() / 2);
+            iconYTop = ((screenHeight / 10) * 6.8) + (upArrowBitmap.getHeight() / 2);
+            iconYBottom = ((screenHeight / 10) * 8) + (countMirroredBitmap.getHeight() / 2);
+        }
     }
 
     function updataCountFromToElement(from, to) as Void {
