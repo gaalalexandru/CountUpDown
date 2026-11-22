@@ -40,6 +40,10 @@ class CountUpDownView extends WatchUi.View {
         setLayout(Rez.Layouts.MainLayout(dc));
         timeOfTheDayElement_hm = findDrawableById("timeHM") as Text;
         timeOfTheDayElement_sec = findDrawableById("timeSec") as Text;
+        // Some watches map both clock fonts to the same face; others use smaller seconds.
+        var clockBaseline = timeOfTheDayElement_hm.locY + Graphics.getFontAscent(Graphics.FONT_MEDIUM);
+        timeOfTheDayElement_sec.setLocation(timeOfTheDayElement_sec.locX,
+                                            clockBaseline - Graphics.getFontAscent(Graphics.FONT_TINY));
 
         currentTimerElement = findDrawableById("currentTimerLabel") as Text;
         countFromToElement = findDrawableById("countFromToLabel") as Text;

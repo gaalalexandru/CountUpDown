@@ -37,6 +37,10 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
                 Settings.setVibrateEnabled(item.isEnabled());
             }
         }
-        appDelegate.updateVariables();
+    }
+
+    function onBack() as Void {
+        Menu2InputDelegate.onBack();
+        appDelegate.restartFromSettings();
     }
 }

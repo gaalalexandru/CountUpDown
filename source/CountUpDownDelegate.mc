@@ -165,20 +165,13 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
             }
             isCountingUpOld = isCountingUp;
         }
-        var from = 0;
-        var to = 0;
-        if(isCountingUp == true) {
-            from = 0;
-            to = Settings.getInterval();
-            Utils.log("Timer Value: " + timerValue);
-        }
-        else {
-            from = Settings.getInterval();
-            to = 0;
-            Utils.log("Timer Value: " + timerValue);
-        }
-        appView.updataCountFromToElement(from,to);
-        appView.setCountingParameters(isCountingUp, isMirrored, isRepeated );
+        Utils.log("Timer Value: " + timerValue);
+        refreshTimerView(Settings.getInterval());
+    }
+
+    private function refreshTimerView(interval) as Void {
+        appView.updataCountFromToElement(isCountingUp ? 0 : interval, isCountingUp ? interval : 0);
+        appView.setCountingParameters(isCountingUp, isMirrored, isRepeated);
         appView.updateTimerValue(timerValue);
         WatchUi.requestUpdate();
     }
@@ -295,6 +288,8 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     }
     
     function onMenu() as Boolean {
+        oneSecTimer.stop();
+        stopCounting();
         // Generate a new Menu with a drawable Title
         var menu = new WatchUi.Menu2({:title=>new $.DrawableMenuTitle()});
 
@@ -338,11 +333,17 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    function updateVariables() as Void {
+    function restartFromSettings() as Void {
         isCountingUp = Settings.getCountingUp();
         isMirrored = Settings.getMirrored();
         isRepeated = Settings.getRepeated();
-        appView.setCountingParameters(isCountingUp, isMirrored, isRepeated);
+        var interval = Settings.getInterval();
+        timerValue = isCountingUp ? 0 : interval;
+        isCountingUpOld = isCountingUp;
+        appView.updateCurrentDirectionDescription(isCountingUp ? CountDirectionType.CountUp : CountDirectionType.CountDown);
+        startCounting();
+        refreshTimerView(interval);
+        oneSecTimer.start(method(:oneSecondCyclicFunction), 1000, true);
     }
 }
 

@@ -11,8 +11,8 @@ CountUpDown is a Garmin Connect IQ watch app for timing an interval in either di
 1. Open **CountUpDown** from the watch's apps. It launches paused.
 2. Open the app's **Settings** using the watch's Menu action. Choose **Count Interval**, set **Target Time** to `00:30`, and confirm the picker.
 3. Set **Count Direction** to **Count Down** and **Count Repet** to **One Time**. Turn **Vibrate** on if you want a tactile alert. **Beep** appears on watches that support tones.
-4. To start with exactly the interval you just entered, return to the timer, press **Back** while paused, confirm **Yes**, and reopen the app. Editing the interval changes the target immediately; launching the app loads that interval into the counter.
-5. Tap the main screen or press **Select/Enter**. The large digits count down. Tap or select again to pause or resume at the current value. At `00:00`, the enabled alerts fire and the counter stops.
+4. Press **Back** from Settings. The timer immediately shows `00:30` and starts counting down. Confirming or canceling the interval picker first returns you to Settings, where you can finish choosing the other options.
+5. Tap the main screen or press **Select/Enter** to pause or resume at the current value. At `00:00`, the enabled alerts fire and the counter stops.
 
 ### Controls on the main screen
 
@@ -21,7 +21,7 @@ CountUpDown is a Garmin Connect IQ watch app for timing an interval in either di
 | Start, pause, or resume | Select/Enter or tap | Toggles counting and keeps the current value. |
 | Switch to counting up | Up button or swipe up | If currently set to Down, switches to Up and starts counting from the current value. |
 | Switch to counting down | Down button or swipe down | If currently set to Up, switches to Down and starts counting from the current value. |
-| Configure the timer | Device Menu action | Opens Settings. Pause first if you want time to stand still while editing. |
+| Configure the timer | Device Menu action | Pauses counting while Settings is open. Leaving Settings starts a fresh interval, even if you entered paused or made no changes. |
 | Save and exit | Back/Esc while paused, then **Yes** | Saves the timer configuration and closes the app. **No** keeps the session open. Back/Esc while running is consumed by the timer. |
 
 Selecting a direction that is already active leaves the running/paused state alone. To resume a paused timer in the same direction, use Select or tap. In the Garmin simulator's device profiles, the Menu action is a hold on **Up/Menu** on fēnix 7 Pro, the **lower right button** on Venu Sq, and the **upper right button** on Venu Sq 2.
@@ -43,7 +43,7 @@ This sketch shows the rectangular Venu Sq layout. The clock and range are blue, 
 | Menu label | Choices | Effect |
 | --- | --- | --- |
 | **Count Interval** | `00:00`–`59:59` | Pick minutes and seconds. Confirm to store the target in seconds, or cancel to keep the previous value. |
-| **Count Direction** | Count Up / Count Down | Selects the direction for the next running tick. Changing it in Settings preserves the current value and running/paused state. |
+| **Count Direction** | Count Up / Count Down | When you leave Settings, Up starts at zero and counts to the interval. Down starts at the interval and counts to zero. |
 | **Count Type** | Reset / Mirrored | In repeated mode, either jump back to the starting endpoint or reverse direction at the endpoint just reached. |
 | **Count Repet** | One Time / Repeated | Stop after one endpoint or keep running. In One Time mode, Count Type has no effect. |
 | **Beep** | On / Off | Enables an endpoint tone. The menu shows this toggle only when `Attention has :playTone`. Both Venu Sq targets omit it. |
@@ -74,7 +74,7 @@ Here is the **displayed counter in seconds** for three timers that all start cou
 
 - On launch, the delegate initializes the counter to the saved interval **in either direction**. A freshly launched Count Up session therefore starts at its upper endpoint. Its first running tick performs the selected endpoint action. To count up from zero in a one-time session, finish a countdown and then press Up or swipe up.
 - After a one-time timer finishes, Select resumes from that same endpoint. Switch direction to travel back through the interval, or reopen the app to reload the saved interval.
-- Editing Count Interval leaves the live counter where it was. If the new target is below a running up-counter, the next tick clamps the value to the new target and handles the endpoint.
+- To restart from the selected direction's starting value at any time, open Settings and press Back. The timer uses the interval, direction, repetition, and count type selected in the menu.
 - A zero interval is accepted. In repeated mode both endpoints are zero, so the app can request an alert every running tick. Use at least one second to space out alerts.
 
 ## Application design
@@ -148,7 +148,7 @@ The [property resource](resources/properties/properties.xml) declares 30 seconds
 | [CountUpDownDelegate.mc](source/CountUpDownDelegate.mc) | One-second timer, input mapping, state transitions, endpoint alerts, settings menu construction, and exit flow. |
 | [CountUpDownView.mc](source/CountUpDownView.mc) | Drawable lookup, clock and counter formatting, device-shape layout, and bitmap rendering. |
 | [Settings.mc](source/Settings.mc) | Typed property keys in the resource file are read and written here. Also manages the exit snapshot. |
-| [SettingsMenuDelegate.mc](source/SettingsMenu/SettingsMenuDelegate.mc) | Dispatches menu selections, writes toggles, and refreshes the delegate's cached modes. |
+| [SettingsMenuDelegate.mc](source/SettingsMenu/SettingsMenuDelegate.mc) | Dispatches menu selections, writes toggles, and restarts the timer with the final settings when the menu closes. |
 | [TimePicker.mc](source/SettingsMenu/TimePicker.mc) | Two numeric picker columns, a separator, and accept/cancel handling. Converts the selection to seconds. |
 | [ConfirmationDialogDelegate.mc](source/ConfirmationDialog/ConfirmationDialogDelegate.mc) | Forwards the exit dialog response to the timer delegate. |
 | [Utils.mc](source/Utils.mc) | Debug logging with optional line termination through separate methods. Release builds use empty implementations. |
@@ -185,11 +185,12 @@ Add `-r` to `monkeyc` for a release build. In debug builds, `Utils.log(message)`
 
 ### Manual checks
 
-The repository has no automated timer test suite. A three-second interval keeps the following checks short. Save and reopen after setting the interval to start with exactly three seconds on the display.
+The repository has no automated timer test suite. Set the interval to three seconds and press Back from Settings to start each run.
 
 | Check | Action | Expected result |
 | --- | --- | --- |
 | Pause and resume | Start a countdown, pause at two, wait, then resume | The counter holds at two while the clock advances; the next running tick shows one. |
+| Restart from Settings | Try both directions with a three-second interval. Wait in the picker before returning to Settings and pressing Back. | Counting starts on menu exit. Down shows three then two; Up shows zero then one. |
 | Endpoints and modes | Try each row of the three-second chart above | The displayed values and endpoint alerts follow that row. |
 | Direction change | During a longer countdown, switch to Up | The next tick increments the existing counter. |
 | Independent alerts | On a tone-capable watch, try Beep only, Vibrate only, both, and neither | Each enabled output fires at the endpoint. Use a physical watch to check audible and tactile behavior. |
