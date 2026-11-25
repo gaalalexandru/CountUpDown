@@ -70,16 +70,18 @@ class CountUpDownView extends WatchUi.View {
         var labelBottom = currentDirectionDescriptionElement.locY + dc.getFontHeight(Graphics.FONT_SMALL);
         if (System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_RECTANGLE) {
             // Center the mode icons and alert indicators together below the status label.
+            // Square/rectangular displays: add 10% more space between the bottom-row icons.
+            var iconGap = gap * 1.2;
             iconYBottom = (labelBottom + screenHeight - countMirroredBitmap.getHeight()) / 2;
             iconYTop = iconYBottom;
-            var alertWidth = supportsTones ? 2 * smallWidth + gap : smallWidth;
-            var rowWidth = upArrowBitmap.getWidth() + modeWidth + smallWidth + alertWidth + 4 * gap;
+            var alertWidth = supportsTones ? 2 * smallWidth + iconGap : smallWidth;
+            var rowWidth = upArrowBitmap.getWidth() + modeWidth + smallWidth + alertWidth + 4 * iconGap;
             iconXLeft = (screenWidth - rowWidth) / 2;
-            iconXCenter = iconXLeft + upArrowBitmap.getWidth() + gap;
-            iconXRight = iconXCenter + modeWidth + gap;
-            var alertLeft = iconXRight + smallWidth + 2 * gap;
+            iconXCenter = iconXLeft + upArrowBitmap.getWidth() + iconGap;
+            iconXRight = iconXCenter + modeWidth + iconGap;
+            var alertLeft = iconXRight + smallWidth + 2 * iconGap;
             speakerX = alertLeft;
-            vibrationX = supportsTones ? alertLeft + smallWidth + gap : alertLeft;
+            vibrationX = supportsTones ? alertLeft + smallWidth + iconGap : alertLeft;
         } else {
             iconXLeft = ((screenWidth / 10) * 1.5) + (upArrowBitmap.getWidth() / 2);
             iconXRight = ((screenWidth / 10) * 8) - (upArrowBitmap.getWidth() / 2);

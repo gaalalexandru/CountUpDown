@@ -166,6 +166,12 @@ The [property resource](resources/properties/properties.xml) declares 30 seconds
 | fēnix 7 Pro | `fenix7pro` | Beep toggle and both endpoint tones |
 | fēnix 7 Pro (no Wi-Fi) | `fenix7pronowifi` | Model-specific build |
 | fēnix 7S | `fenix7s` | Smaller round layout |
+| fēnix 7X | `fenix7x` | Larger round layout |
+| fēnix 8 43mm | `fenix843mm` | AMOLED, 60×60 launcher icon |
+| fēnix 8 47mm/51mm | `fenix847mm` | AMOLED, 65×65 launcher icon |
+| fēnix 8 Pro | `fenix8pro47mm` | AMOLED, 65×65 launcher icon |
+| fēnix 8 Solar 47mm | `fenix8solar47mm` | Solar/MIP display |
+| fēnix 8 Solar 51mm | `fenix8solar51mm` | Solar/MIP display |
 | Venu Sq | `venusq` | Rectangular layout, touch input, vibration |
 | Venu Sq 2 | `venusq2` | Status text above the icon row, vibration, Beep hidden |
 

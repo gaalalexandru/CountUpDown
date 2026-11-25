@@ -46,11 +46,27 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     function onSelect() as Boolean {
         Utils.log("onSelect()");
         if(isCounting == false) {
+            // If the counter is parked at its endpoint (0 while counting down, or
+            // the target while counting up), restart from the configured starting
+            // value instead of resuming at the endpoint. Resuming at the endpoint
+            // would just re-trigger the endpoint on the next tick and stay paused.
+            var interval = Settings.getInterval();
+            var restarted = false;
+            if (!isCountingUp && timerValue <= 0) {
+                timerValue = interval; // restart the countdown from the target
+                restarted = true;
+            } else if (isCountingUp && timerValue >= interval) {
+                timerValue = 0;        // restart the count-up from zero
+                restarted = true;
+            }
             startCounting();
             if (isCountingUp) {
                 appView.updateCurrentDirectionDescription(CountDirectionType.CountUp);
             } else {
                 appView.updateCurrentDirectionDescription(CountDirectionType.CountDown);
+            }
+            if (restarted) {
+                refreshTimerView(interval);
             }
         }
         else {
