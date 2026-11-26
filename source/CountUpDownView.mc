@@ -111,6 +111,9 @@ class CountUpDownView extends WatchUi.View {
                 repeatDX = smallWidth / 2;       // repeat right ~50% of its own width
                 speakerDX = -(smallWidth / 5);   // speaker left ~20% of the icon width
                 vibrationDX = smallWidth / 2;    // vibration right ~50% of the icon width
+            } else if (screenWidth == 218) {
+                // Forerunner 255S (218x218): nudge the repeat icon a few pixels right.
+                repeatDX = 3;
             }
         }
     }

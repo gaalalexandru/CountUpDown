@@ -1,0 +1,13 @@
+<resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <bitmap id="UpIcon" filename="icons/up.png"/>
+    <bitmap id="DownIcon" filename="icons/down.png"/>
+    <bitmap id="RepeatOnceIcon" filename="icons/repeat_once.png"/>
+    <bitmap id="RepeatForeverIcon" filename="icons/repeat_forever.png"/>
+    <bitmap id="CountUpResetIcon" filename="icons/count_up_reset.png"/>
+    <bitmap id="CountDownResetIcon" filename="icons/count_down_reset.png"/>
+    <bitmap id="CountMirroredIcon" filename="icons/count_mirrored.png"/>
+    <bitmap id="SpeakerOnIcon" filename="icons/speaker_on.png"/>
+    <bitmap id="SpeakerOffIcon" filename="icons/speaker_off.png"/>
+    <bitmap id="VibrationOnIcon" filename="icons/vibration_on.png"/>
+    <bitmap id="VibrationOffIcon" filename="icons/vibration_off.png"/>
+</resources>

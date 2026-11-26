@@ -36,6 +36,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         isMirrored = Settings.getMirrored();
         isRepeated = Settings.getRepeated();
         isCountingUpOld = isCountingUp;
+        awaitingStart = true; // start paused; require Select/tap to begin counting
         timerValue = Settings.getInterval();
         Utils.log("Initial Settings: isCountingUp = " + isCountingUp + ", isMirrored = " + isMirrored + ", isRepeated = " + isRepeated);
         Utils.log("Initial timerValue = " + timerValue);
