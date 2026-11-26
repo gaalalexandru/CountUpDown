@@ -107,6 +107,9 @@ class TimePickerDelegate extends WatchUi.PickerDelegate {
         
         // var time = min + (WatchUi.loadResource($.Rez.Strings.timeSeparator) as String) + sec.format($.TWO_DECIMAL_FORMAT);
         var time = (min * 60) + sec;
+        if (time < 1) {
+            time = 1; // minimum interval is one second
+        }
         Settings.setInterval(time);
 
         WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);

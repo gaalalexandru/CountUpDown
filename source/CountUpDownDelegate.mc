@@ -13,6 +13,8 @@ var isRepeated;
 class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     private static var timerValue = 0;
     private var isCounting = false;
+    private var pendingReset = false;
+    private var awaitingStart = false;
     private var oneSecTimer;
     private var appView = getView();
     static var isCountingUpOld = true;
@@ -33,6 +35,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         isCountingUp = Settings.getCountingUp();
         isMirrored = Settings.getMirrored();
         isRepeated = Settings.getRepeated();
+        isCountingUpOld = isCountingUp;
         timerValue = Settings.getInterval();
         Utils.log("Initial Settings: isCountingUp = " + isCountingUp + ", isMirrored = " + isMirrored + ", isRepeated = " + isRepeated);
         Utils.log("Initial timerValue = " + timerValue);
@@ -60,6 +63,8 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
                 restarted = true;
             }
             startCounting();
+            pendingReset = false;
+            awaitingStart = false;
             if (isCountingUp) {
                 appView.updateCurrentDirectionDescription(CountDirectionType.CountUp);
             } else {
@@ -86,6 +91,16 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         isCounting = false;
     }
 
+    //! Keep the counter paused but reload it to the current direction's start.
+    private function resetPausedToStartValue() as Void {
+        var interval = Settings.getInterval();
+        timerValue = isCountingUp ? 0 : interval;
+        pendingReset = false;
+        isCountingUpOld = isCountingUp;
+        appView.updateCurrentDirectionDescription(CountDirectionType.Paused);
+        refreshTimerView(interval);
+    }
+
     private function alertAtEndpoint(tone, vibrationProfile) as Void {
         if (Settings.getBeepEnabled() && (Attention has :playTone)) {
             Attention.playTone(tone);
@@ -97,6 +112,12 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
 
     private function handleUpcount() as Void {
         var targetTimerValue = Settings.getInterval();
+        if (pendingReset) {
+            // Reset mode: the upper endpoint was shown for one tick; now reload zero.
+            timerValue = 0;
+            pendingReset = false;
+            return;
+        }
         if(timerValue < targetTimerValue) {
             timerValue += 1;
         }
@@ -113,9 +134,11 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
                     Settings.setCountingUp(isCountingUp);
                     Utils.log("isCountingUp = " + isCountingUp);
                 } else {
-                    // Reset mode: reset timer to zero
-                    Utils.log("by reseting to zero ... ");
-                    timerValue = 0;
+                    // Reset mode: show the endpoint for one tick, then reload zero.
+                    Utils.log("by reseting to zero on the next tick ... ");
+                    if (targetTimerValue > 0) {
+                        pendingReset = true;
+                    }
                 }
             }
             else
@@ -129,6 +152,12 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     }
 
     private function handleDowncount() as Void {
+        if (pendingReset) {
+            // Reset mode: zero was shown for one tick; now reload the target.
+            timerValue = Settings.getInterval();
+            pendingReset = false;
+            return;
+        }
         if(timerValue > 0) {
             timerValue -= 1;
         }
@@ -145,9 +174,11 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
                         Settings.setCountingUp(isCountingUp);
                         Utils.log("isCountingUp = " + isCountingUp);
                     } else {
-                        // Reset mode: reset timer to initial value
-                        Utils.log("by reseting to the initial counter value ... ");
-                        timerValue = Settings.getInterval();
+                        // Reset mode: show zero for one tick, then reload the target.
+                        Utils.log("by reseting to the initial counter value on the next tick ... ");
+                        if (Settings.getInterval() > 0) {
+                            pendingReset = true;
+                        }
                     }
             }
             else {
@@ -197,7 +228,13 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         if (isCountingUp == false) {
             isCountingUp = true;
             Settings.setCountingUp(isCountingUp);
-            startCounting();
+            pendingReset = false;
+            if (awaitingStart) {
+                // After leaving Settings, only Select/tap starts the count.
+                resetPausedToStartValue();
+            } else {
+                startCounting();
+            }
         }
     }
 
@@ -206,7 +243,13 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         if (isCountingUp == true) {
             isCountingUp = false;
             Settings.setCountingUp(isCountingUp);
-            startCounting();
+            pendingReset = false;
+            if (awaitingStart) {
+                // After leaving Settings, only Select/tap starts the count.
+                resetPausedToStartValue();
+            } else {
+                startCounting();
+            }
         }
     }
 
@@ -355,9 +398,11 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         isRepeated = Settings.getRepeated();
         var interval = Settings.getInterval();
         timerValue = isCountingUp ? 0 : interval;
+        pendingReset = false;
         isCountingUpOld = isCountingUp;
-        appView.updateCurrentDirectionDescription(isCountingUp ? CountDirectionType.CountUp : CountDirectionType.CountDown);
-        startCounting();
+        appView.updateCurrentDirectionDescription(CountDirectionType.Paused);
+        stopCounting();
+        awaitingStart = true; // require an explicit Select/tap to start counting
         refreshTimerView(interval);
         oneSecTimer.start(method(:oneSecondCyclicFunction), 1000, true);
     }

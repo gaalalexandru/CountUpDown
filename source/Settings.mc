@@ -17,6 +17,9 @@ class Settings {
         var ret =  Properties.getValue("countInterval");
         if (ret != null)
         {
+            if (ret < 1) {
+                return 1; // minimum interval is one second
+            }
             return ret;
         } else {
             return 60; // default value
@@ -24,6 +27,9 @@ class Settings {
     }
 
     static function setInterval(v) {
+        if (v != null && v < 1) {
+            v = 1; // minimum interval is one second
+        }
         Properties.setValue("countInterval", v);
     }
 

@@ -11,8 +11,8 @@ CountUpDown is a Garmin Connect IQ watch app for timing an interval in either di
 1. Open **CountUpDown** from the watch's apps. It launches paused.
 2. Open the app's **Settings** using the watch's Menu action. Choose **Count Interval**, set **Target Time** to `00:30`, and confirm the picker.
 3. Set **Count Direction** to **Count Down** and **Count Repet** to **One Time**. Turn **Vibrate** on if you want a tactile alert. **Beep** appears on watches that support tones.
-4. Press **Back** from Settings. The timer immediately shows `00:30` and starts counting down. Confirming or canceling the interval picker first returns you to Settings, where you can finish choosing the other options.
-5. Tap the main screen or press **Select/Enter** to pause or resume at the current value. At `00:00`, the enabled alerts fire and the counter stops.
+4. Press **Back** from Settings. The timer shows `00:30` paused, ready to start. Confirming or canceling the interval picker first returns you to Settings, where you can finish choosing the other options.
+5. Tap the main screen or press **Select/Enter** to start counting; tap or press again to pause or resume at the current value. At `00:00`, the enabled alerts fire and the counter stops.
 
 ### Controls on the main screen
 
@@ -21,10 +21,12 @@ CountUpDown is a Garmin Connect IQ watch app for timing an interval in either di
 | Start, pause, or resume | Select/Enter or tap | Toggles counting and keeps the current value. |
 | Switch to counting up | Up button or swipe up | If currently set to Down, switches to Up and starts counting from the current value. |
 | Switch to counting down | Down button or swipe down | If currently set to Up, switches to Down and starts counting from the current value. |
-| Configure the timer | Device Menu action | Pauses counting while Settings is open. Leaving Settings starts a fresh interval, even if you entered paused or made no changes. |
+| Configure the timer | Device Menu action | Pauses counting while Settings is open. Leaving Settings resets the counter to its starting value and leaves it paused; Select/Enter or a tap starts it, and Up/Down or a swipe only changes direction. |
 | Save and exit | Back/Esc while paused, then **Yes** | Saves the timer configuration and closes the app. **No** keeps the session open. Back/Esc while running is consumed by the timer. |
 
-Selecting a direction that is already active leaves the running/paused state alone. To resume a paused timer in the same direction, use Select or tap. In the Garmin simulator's device profiles, the Menu action is a hold on **Up/Menu** on fēnix 7 Pro, the **lower right button** on Venu Sq, and the **upper right button** on Venu Sq 2.
+Selecting a direction that is already active leaves the running/paused state alone. To start or resume a paused timer in the same direction, use Select or tap. In the Garmin simulator's device profiles, the Menu action is a hold on **Up/Menu** on fēnix 7 Pro, the **lower right button** on Venu Sq, and the **upper right button** on Venu Sq 2.
+
+Immediately after leaving Settings the timer waits for an explicit start: **Select/Enter** or a tap begins counting, while **Up/Down** or a swipe only changes the direction and stays paused.
 
 ### Reading the display
 
@@ -44,8 +46,8 @@ A red slash means that alert is switched off in the app. The speaker appears onl
 
 | Menu label | Choices | Effect |
 | --- | --- | --- |
-| **Count Interval** | `00:00`–`59:59` | Pick minutes and seconds. Confirm to store the target in seconds, or cancel to keep the previous value. |
-| **Count Direction** | Count Up / Count Down | When you leave Settings, Up starts at zero and counts to the interval. Down starts at the interval and counts to zero. |
+| **Count Interval** | `00:01`–`59:59` | Pick minutes and seconds. The minimum is one second; values below that clamp to `00:01`. Confirm to store the target, or cancel to keep the previous value. |
+| **Count Direction** | Count Up / Count Down | After leaving Settings, Up is reset to zero and Down to the interval, both paused until you start counting. |
 | **Count Type** | Reset / Mirrored | In repeated mode, either jump back to the starting endpoint or reverse direction at the endpoint just reached. |
 | **Count Repet** | One Time / Repeated | Stop after one endpoint or keep running. In One Time mode, Count Type has no effect. |
 | **Beep** | On / Off | Enables an endpoint tone. The menu shows this toggle only when `Attention has :playTone`. Both Venu Sq targets omit it. |
@@ -59,15 +61,15 @@ Up counts toward the configured interval. Down counts toward zero. Each running 
 
 | At the endpoint | One Time | Repeated + Reset | Repeated + Mirrored |
 | --- | --- | --- | --- |
-| Up reaches the target | Alert and pause at target | Alert and reset to zero | Alert and start counting down from target |
-| Down reaches zero | Alert and pause at zero | Alert and reload the target | Alert and start counting up from zero |
+| Up reaches the target | Alert and pause at target | Alert, show target for one tick, then reset to zero | Alert and start counting down from target |
+| Down reaches zero | Alert and pause at zero | Alert, show zero for one tick, then reload the target | Alert and start counting up from zero |
 
-Here is the **displayed counter in seconds** for three timers that all start counting down from three. The chart shows why zero can appear to be skipped in Reset mode: the counter reaches zero, alerts, and reloads three before the screen redraws.
+Here is the **displayed counter in seconds** for three timers that all start counting down from three. In Reset mode the counter reaches zero, alerts, and holds zero for one full tick before reloading, so the endpoint value is visible on screen.
 
 | Seconds since start | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | One Time | 3 | 2 | 1 | **0** | 0 | 0 | 0 |
-| Repeated + Reset | 3 | 2 | 1 | **3** | 2 | 1 | **3** |
+| Repeated + Reset | 3 | 2 | 1 | **0** | 3 | 2 | 1 |
 | Repeated + Mirrored | 3 | 2 | 1 | **0** | 1 | 2 | **3** |
 
 **Bold** marks an endpoint event. At the upper endpoint the app requests `TONE_TIME_ALERT` and two 200 ms vibration pulses separated by 400 ms. At zero it requests `TONE_INTERVAL_ALERT` and one 500 ms pulse. Each output is gated by its own preference and device capability.
@@ -76,8 +78,8 @@ Here is the **displayed counter in seconds** for three timers that all start cou
 
 - On launch, the delegate initializes the counter to the saved interval **in either direction**. A freshly launched Count Up session therefore starts at its upper endpoint. Its first running tick performs the selected endpoint action. To count up from zero in a one-time session, finish a countdown and then press Up or swipe up.
 - After a one-time timer finishes, Select resumes from that same endpoint. Switch direction to travel back through the interval, or reopen the app to reload the saved interval.
-- To restart from the selected direction's starting value at any time, open Settings and press Back. The timer uses the interval, direction, repetition, and count type selected in the menu.
-- A zero interval is accepted. In repeated mode both endpoints are zero, so the app can request an alert every running tick. Use at least one second to space out alerts.
+- To reset to the selected direction's starting value at any time, open Settings and press Back. The timer loads the interval, direction, repetition, and count type selected in the menu and stays paused until you start it.
+- The interval minimum is one second. Selecting `00:00` in the picker stores one second instead of zero, so repeated mode never collapses both endpoints to zero.
 
 ## Application design
 
@@ -160,7 +162,7 @@ The [property resource](resources/properties/properties.xml) declares 30 seconds
 
 ### Supported targets
 
-The launcher icon is shipped at each watch's native size. Sizes other than the 40×40 default live in `resources-<product id>/drawables`, so the compiler never rescales the icon.
+The launcher icon is shipped at each watch's native size. Sizes other than the 40×40 default live in `resources-<product id>/drawables`, so the compiler never rescales the icon. On the AMOLED fēnix 8 models, the on-screen icons (direction arrows, repeat, count-type, speaker, and vibration) are shipped larger in `resources-<product id>/drawables/icons`, so they stay proportional to the higher-resolution display instead of looking undersized.
 
 #### Everyday / lifestyle
 

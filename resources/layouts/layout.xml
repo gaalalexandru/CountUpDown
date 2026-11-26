@@ -45,7 +45,7 @@
         y="68%"
         text="Paused"
         font="Graphics.FONT_SMALL"
-        color="Graphics.COLOR_GREEN"
+        color="Graphics.COLOR_YELLOW"
         justification="Graphics.TEXT_JUSTIFY_CENTER"
     />
     <!-- <bitmap 

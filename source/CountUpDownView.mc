@@ -28,6 +28,11 @@ class CountUpDownView extends WatchUi.View {
     private var iconYBottom;
     private var speakerX;
     private var vibrationX;
+    private var arrowDX = 0;      // extra horizontal offset for the direction arrow
+    private var arrowDY = 0;      // extra vertical offset for the direction arrow
+    private var repeatDX = 0;     // extra horizontal offset for the repeat icon
+    private var speakerDX = 0;    // extra horizontal offset for the speaker icon
+    private var vibrationDX = 0;  // extra horizontal offset for the vibration icon
     private var isCountingUpView = false;
     private var isRepeatedView = false;
     private var isMirroredView = false;
@@ -63,6 +68,11 @@ class CountUpDownView extends WatchUi.View {
         countMirroredBitmap = WatchUi.loadResource(Rez.Drawables.CountMirroredIcon);
         screenWidth  = dc.getWidth();
         screenHeight = dc.getHeight();
+        arrowDX = 0;
+        arrowDY = 0;
+        repeatDX = 0;
+        speakerDX = 0;
+        vibrationDX = 0;
 
         var modeWidth = countMirroredBitmap.getWidth();
         var smallWidth = repeatOnceBitmap.getWidth(); // Repeat and alert icons are all 20 px.
@@ -91,6 +101,17 @@ class CountUpDownView extends WatchUi.View {
             iconXCenter = (screenWidth - modeWidth) / 2;
             speakerX = iconXCenter - gap - smallWidth;
             vibrationX = iconXCenter + modeWidth + gap;
+
+            // The AMOLED fēnix 8 targets ship larger in-app icons, so the up arrow is
+            // wider than the 16 px base. Nudge the icons into place around the larger text.
+            if (upArrowBitmap.getWidth() > 16) {
+                var textHeight = dc.getFontHeight(Graphics.FONT_SMALL);
+                arrowDY = (textHeight / 8) - 2;  // arrow ~2 px higher than 1/8 line height
+                arrowDX = -8;                    // arrow 8 px left of the base position
+                repeatDX = smallWidth / 2;       // repeat right ~50% of its own width
+                speakerDX = -(smallWidth / 5);   // speaker left ~20% of the icon width
+                vibrationDX = smallWidth / 2;    // vibration right ~50% of the icon width
+            }
         }
     }
 
@@ -122,19 +143,19 @@ class CountUpDownView extends WatchUi.View {
         
         View.onUpdate(dc);
         if (supportsTones) {
-            dc.drawBitmap(speakerX, iconYBottom, speakerBitmap);
+            dc.drawBitmap(speakerX + speakerDX, iconYBottom, speakerBitmap);
         }
-        dc.drawBitmap(vibrationX, iconYBottom, vibrationBitmap);
+        dc.drawBitmap(vibrationX + vibrationDX, iconYBottom, vibrationBitmap);
         if (isCountingUpView == true) {
-            dc.drawBitmap(iconXLeft, iconYTop, upArrowBitmap);
+            dc.drawBitmap(iconXLeft + arrowDX, iconYTop + arrowDY, upArrowBitmap);
         } else {
-            dc.drawBitmap(iconXLeft, iconYTop, downArrowBitmap);
+            dc.drawBitmap(iconXLeft + arrowDX, iconYTop + arrowDY, downArrowBitmap);
         }
         
         if (isRepeatedView == true) {
-            dc.drawBitmap(iconXRight,  iconYTop, repeatForeverBitmap);
+            dc.drawBitmap(iconXRight + repeatDX,  iconYTop, repeatForeverBitmap);
         } else {
-            dc.drawBitmap(iconXRight,  iconYTop, repeatOnceBitmap);
+            dc.drawBitmap(iconXRight + repeatDX,  iconYTop, repeatOnceBitmap);
         }
 
         if (isMirroredView == true) {
