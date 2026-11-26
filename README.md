@@ -160,20 +160,67 @@ The [property resource](resources/properties/properties.xml) declares 30 seconds
 
 ### Supported targets
 
-| Watch | SDK product ID | Useful check |
-| --- | --- | --- |
-| fēnix 7 | `fenix7` | Round layout and button input |
-| fēnix 7 Pro | `fenix7pro` | Beep toggle and both endpoint tones |
-| fēnix 7 Pro (no Wi-Fi) | `fenix7pronowifi` | Model-specific build |
-| fēnix 7S | `fenix7s` | Smaller round layout |
-| fēnix 7X | `fenix7x` | Larger round layout |
-| fēnix 8 43mm | `fenix843mm` | AMOLED, 60×60 launcher icon |
-| fēnix 8 47mm/51mm | `fenix847mm` | AMOLED, 65×65 launcher icon |
-| fēnix 8 Pro | `fenix8pro47mm` | AMOLED, 65×65 launcher icon |
-| fēnix 8 Solar 47mm | `fenix8solar47mm` | Solar/MIP display |
-| fēnix 8 Solar 51mm | `fenix8solar51mm` | Solar/MIP display |
-| Venu Sq | `venusq` | Rectangular layout, touch input, vibration |
-| Venu Sq 2 | `venusq2` | Status text above the icon row, vibration, Beep hidden |
+The launcher icon is shipped at each watch's native size. Sizes other than the 40×40 default live in `resources-<product id>/drawables`, so the compiler never rescales the icon.
+
+#### Everyday / lifestyle
+
+| Watch | SDK product ID | Launcher icon | Useful check |
+| --- | --- | --- | --- |
+| vívoactive 5 | `vivoactive5` | 56×56 | Round AMOLED, touch input |
+| vívoactive 6 | `vivoactive6` | 54×54 | Round AMOLED, touch input |
+| Venu 3 | `venu3` | 70×70 | Largest launcher icon in the project |
+| Venu 3S | `venu3s` | 70×70 | Smaller body, same 70×70 icon as Venu 3 |
+| Venu 4 41 mm | `venu441mm` | 54×54 | Smaller round AMOLED |
+| Venu 4 45 mm | `venu445mm` | 65×65 | Round AMOLED |
+| Venu X1 | `venux1` | 65×65 | Rectangular AMOLED, 448×486 |
+| Venu Sq | `venusq` | 36×36 | Rectangular layout, touch input, vibration |
+| Venu Sq 2 | `venusq2` | 40×40 | Status text above the icon row, vibration, Beep hidden |
+
+#### Running
+
+| Watch | SDK product ID | Launcher icon | Useful check |
+| --- | --- | --- | --- |
+| Forerunner 165 | `fr165` | 54×54 | Round AMOLED |
+| Forerunner 165 Music | `fr165m` | 54×54 | Same layout as the 165 |
+| Forerunner 255 / 255 Music | `fr255`, `fr255m` | 40×40 | Memory-in-pixel display, button input |
+| Forerunner 255S / 255S Music | `fr255s`, `fr255sm` | 40×40 | Smallest round target, 218×218 |
+| Forerunner 265 | `fr265` | 60×60 | Round AMOLED, 416×416 |
+| Forerunner 265S | `fr265s` | 60×60 | Smaller round AMOLED, 360×360 |
+| Forerunner 570 42 mm | `fr57042mm` | 54×54 | Round AMOLED, 390×390 |
+| Forerunner 570 47 mm | `fr57047mm` | 65×65 | Round AMOLED, 454×454 |
+| Forerunner 955 | `fr955` | 40×40 | Memory-in-pixel display |
+| Forerunner 965 | `fr965` | 65×65 | Round AMOLED |
+| Forerunner 970 | `fr970` | 65×65 | Round AMOLED |
+
+#### Outdoor / premium
+
+| Watch | SDK product ID | Launcher icon | Useful check |
+| --- | --- | --- | --- |
+| fēnix E | `fenixe` | 60×60 | Round AMOLED, 416×416 |
+| Enduro 3 | `enduro3` | 40×40 | Memory-in-pixel display, 280×280 |
+| fēnix 7 | `fenix7` | 40×40 | Round layout and button input |
+| fēnix 7 Pro | `fenix7pro` | 40×40 | Beep toggle and both endpoint tones |
+| fēnix 7 Pro (no Wi-Fi) | `fenix7pronowifi` | 40×40 | Model-specific build |
+| fēnix 7S | `fenix7s` | 40×40 | Smaller round layout |
+| fēnix 7X | `fenix7x` | 40×40 | Larger round layout |
+| fēnix 8 43mm | `fenix843mm` | 60×60 | AMOLED, 60×60 launcher icon |
+| fēnix 8 47mm/51mm | `fenix847mm` | 65×65 | AMOLED, 65×65 launcher icon |
+| fēnix 8 Pro | `fenix8pro47mm` | 65×65 | AMOLED, 65×65 launcher icon |
+| fēnix 8 Solar 47mm | `fenix8solar47mm` | 40×40 | Solar/MIP display |
+| fēnix 8 Solar 51mm | `fenix8solar51mm` | 40×40 | Solar/MIP display |
+| fēnix 5 / quatix 5 | `fenix5` | 40×40 | Connect IQ 3.1 device |
+| fēnix 5 Plus | `fenix5plus` | 40×40 | Connect IQ 3.3 device |
+| fēnix 5S | `fenix5s` | 36×36 | Connect IQ 3.1 device, smallest body |
+| fēnix 5S Plus | `fenix5splus` | 40×40 | Connect IQ 3.3 device |
+| fēnix 5X / tactix Charlie | `fenix5x` | 40×40 | Connect IQ 3.1 device |
+| fēnix 5X Plus | `fenix5xplus` | 40×40 | Connect IQ 3.3 device |
+| fēnix 6 / 6 Solar / 6 Dual Power | `fenix6` | 40×40 | Connect IQ 3.4 device |
+| fēnix 6 Pro / 6 Sapphire / 6 Pro Solar / quatix 6 | `fenix6pro` | 40×40 | Connect IQ 3.4 device |
+| fēnix 6S / 6S Solar / 6S Dual Power | `fenix6s` | 40×40 | Connect IQ 3.4 device |
+| fēnix 6S Pro / 6S Sapphire / 6S Pro Solar | `fenix6spro` | 40×40 | Connect IQ 3.4 device |
+| fēnix 6X Pro / 6X Sapphire / 6X Pro Solar / tactix Delta / quatix 6X | `fenix6xpro` | 40×40 | Connect IQ 3.4 device, includes every 6X variant |
+
+The fēnix 5 and fēnix 6 rows list the product IDs registered in the manifest for builds made with an older SDK: current SDK releases no longer ship those device profiles, so this repository's SDK reports `Invalid device id` **warnings** for them while still building every other product. fēnix 3, fēnix 3 HR, and fēnix Chronos are intentionally absent — they are Connect IQ 1.4 devices, below the manifest's `minApiLevel` of 3.0.0, and the Settings screen depends on `WatchUi.Menu2`, which needs API 3.1.
 
 ### Run in the simulator or on a watch
 
