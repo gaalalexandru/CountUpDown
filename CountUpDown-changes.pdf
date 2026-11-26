@@ -1,0 +1,173 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [5 0 R 7 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 5147 >>
+stream
+BT /F2 23.000 Tf 0.100 0.120 0.160 rg 1 0 0 1 54.00 716.00 Tm (CountUpDown - Change Summary) Tj ET
+0.130 0.420 0.660 rg 54.00 706.00 504.00 2.40 re f
+BT /F1 9.500 Tf 0.420 0.450 0.500 rg 1 0 0 1 54.00 686.00 Tm (Garmin Connect IQ watch app  |  SDK 9.3.0  |  34 / 34 product builds passing) Tj ET
+BT /F2 14.000 Tf 0.130 0.300 0.520 rg 1 0 0 1 54.00 658.00 Tm (Build verification) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 639.50 Tm (All 34 simulatable products compile with the Connect IQ 9.3.0 toolchain, and each was launched and) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 624.59 Tm (exercised in the simulator during this cycle. The only compiler output is the expected legacy 'Invalid device) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 609.68 Tm (id' warning for the fenix 5 / fenix 6 product IDs, whose device profiles the installed SDK no longer ships.) Tj ET
+BT /F2 14.000 Tf 0.130 0.300 0.520 rg 1 0 0 1 54.00 581.27 Tm (Supported products) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 562.77 Tm (The manifest targets 45 products; 34 are buildable and were simulator-tested this cycle:) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 543.86 Tm (enduro3, fenix7, fenix7pro, fenix7pronowifi, fenix7s, fenix7x, fenix843mm, fenix847mm, fenix8pro47mm,) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 528.95 Tm (fenix8solar47mm, fenix8solar51mm, fenixe, fr165, fr165m, fr255, fr255m, fr255s, fr255sm, fr265, fr265s,) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 514.04 Tm (fr57042mm, fr57047mm, fr955, fr965, fr970, venu3, venu3s, venu441mm, venu445mm, venusq, venusq2,) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 499.13 Tm (venux1, vivoactive5, vivoactive6.) Tj ET
+BT /F2 14.000 Tf 0.130 0.300 0.520 rg 1 0 0 1 54.00 470.72 Tm (1. Timer logic - repeated + reset endpoints) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 452.22 Tm (In Repeated + Reset mode the endpoint was reloaded in the same tick it was reached, so the display) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 437.31 Tm (skipped it: a down count never showed 0 and an up count never showed the target. A one-tick pendingReset) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 422.40 Tm (hold now shows the endpoint for a full second before reloading. Down counts run 3, 2, 1, 0, target ...; up) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 407.49 Tm (counts run target-1, target, 0 ...) Tj ET
+0.130 0.420 0.660 rg 56.00 391.58 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 388.58 Tm (Mirrored and One-Time modes are unchanged \(they already displayed the endpoints\).) Tj ET
+0.130 0.420 0.660 rg 56.00 375.67 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 372.67 Tm (A zero-length interval is now impossible, so the hold never collapses.) Tj ET
+BT /F2 14.000 Tf 0.130 0.300 0.520 rg 1 0 0 1 54.00 347.26 Tm (2. Start / pause behaviour) Tj ET
+0.130 0.420 0.660 rg 56.00 331.76 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 328.76 Tm (The app launches paused and waits for an explicit start.) Tj ET
+0.130 0.420 0.660 rg 56.00 315.85 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 312.85 Tm (On launch, and immediately after leaving Settings, only Select/Enter or a screen tap begins counting.) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 297.94 Tm (Up/Down and swipes only change direction while it waits.) Tj ET
+0.130 0.420 0.660 rg 56.00 285.03 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 282.03 Tm (Once counting has started, Select pauses; in that paused state Up/Down and swipes switch direction and) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 267.12 Tm (resume.) Tj ET
+0.130 0.420 0.660 rg 56.00 254.21 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 251.21 Tm (Exiting Settings no longer auto-starts the timer.) Tj ET
+BT /F2 14.000 Tf 0.130 0.300 0.520 rg 1 0 0 1 54.00 225.80 Tm (3. Interval minimum) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 207.30 Tm (The interval can no longer be zero. The picker clamps 00:00 up to 00:01, and Settings.setInterval /) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 192.39 Tm (getInterval clamp any value below one second to one.) Tj ET
+BT /F2 14.000 Tf 0.130 0.300 0.520 rg 1 0 0 1 54.00 163.98 Tm (4. Paused status colour) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 145.48 Tm (The main screen 'Paused' label now shows in the paused \(yellow\) colour from launch. The layout default) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 130.57 Tm (colour changed from green to yellow, and the delegate seeds its direction tracker at startup so no spurious) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 115.66 Tm ('direction changed' repaint turns it green.) Tj ET
+0.72 0.74 0.78 RG 0.7 w 54.00 40 m 558.00 40 l S
+BT /F1 8 Tf 0.45 0.47 0.5 rg 1 0 0 1 54.00 28 Tm (CountUpDown - Change Summary) Tj ET
+BT /F1 8 Tf 0.45 0.47 0.5 rg 1 0 0 1 496.00 28 Tm (Page 1 / 2) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 7732 >>
+stream
+BT /F2 14.000 Tf 0.130 0.300 0.520 rg 1 0 0 1 54.00 718.00 Tm (5. In-app icon scaling for high-resolution displays) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 699.50 Tm (The on-screen icons \(direction arrows, repeat, count-type, speaker, vibration\) were generated larger for the) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 684.59 Tm (high-resolution targets, scaled by screen width versus the 260 px baseline. The layout re-centres the icons,) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 669.68 Tm (so the bigger bitmaps slot in proportionally. Standard 16 / 20 / 80x20 icons are kept for the 260-class MIP) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 654.77 Tm (displays \(fr255 family, fr955, fenix8solar family, venusq\).) Tj ET
+0.900 0.930 0.970 rg 54.00 630.45 504.00 15.91 re f
+BT /F2 8.600 Tf 0.120 0.240 0.420 rg 1 0 0 1 59.00 635.61 Tm (Screen) Tj ET
+BT /F2 8.600 Tf 0.120 0.240 0.420 rg 1 0 0 1 98.69 635.61 Tm (Products) Tj ET
+BT /F2 8.600 Tf 0.120 0.240 0.420 rg 1 0 0 1 404.72 635.61 Tm (Arrow) Tj ET
+BT /F2 8.600 Tf 0.120 0.240 0.420 rg 1 0 0 1 440.48 635.61 Tm (Repeat / alert) Tj ET
+BT /F2 8.600 Tf 0.120 0.240 0.420 rg 1 0 0 1 506.17 635.61 Tm (Count-type) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 59.00 619.70 Tm (454 px) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 98.69 619.70 Tm (fenix847mm, fenix8pro47mm, fr57047mm, fr965, fr970, venu3, venu445mm) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 404.72 619.70 Tm (28x28) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 440.48 619.70 Tm (35x35) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 506.17 619.70 Tm (140x35) Tj ET
+0.720 0.740 0.780 RG 0.70 w 54.00 615.04 m 558.00 615.04 l S
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 59.00 603.79 Tm (448 px) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 98.69 603.79 Tm (venux1) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 404.72 603.79 Tm (28x28) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 440.48 603.79 Tm (34x34) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 506.17 603.79 Tm (138x34) Tj ET
+0.720 0.740 0.780 RG 0.70 w 54.00 599.13 m 558.00 599.13 l S
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 59.00 587.88 Tm (416 px) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 98.69 587.88 Tm (fenix843mm, fenixe, fr265) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 404.72 587.88 Tm (26x26) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 440.48 587.88 Tm (32x32) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 506.17 587.88 Tm (128x32) Tj ET
+0.720 0.740 0.780 RG 0.70 w 54.00 583.22 m 558.00 583.22 l S
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 59.00 571.97 Tm (390 px) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 98.69 571.97 Tm (fr165, fr165m, fr57042mm, venu3s, venu441mm, vivoactive5, vivoactive6) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 404.72 571.97 Tm (24x24) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 440.48 571.97 Tm (30x30) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 506.17 571.97 Tm (120x30) Tj ET
+0.720 0.740 0.780 RG 0.70 w 54.00 567.31 m 558.00 567.31 l S
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 59.00 556.06 Tm (360 px) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 98.69 556.06 Tm (fr265s) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 404.72 556.06 Tm (22x22) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 440.48 556.06 Tm (28x28) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 506.17 556.06 Tm (111x28) Tj ET
+0.720 0.740 0.780 RG 0.70 w 54.00 551.40 m 558.00 551.40 l S
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 59.00 540.15 Tm (320 px) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 98.69 540.15 Tm (venusq2) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 404.72 540.15 Tm (20x20) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 440.48 540.15 Tm (25x25) Tj ET
+BT /F1 8.600 Tf 0.150 0.150 0.180 rg 1 0 0 1 506.17 540.15 Tm (98x25) Tj ET
+0.720 0.740 0.780 RG 0.70 w 54.00 535.49 m 558.00 535.49 l S
+BT /F2 14.000 Tf 0.130 0.300 0.520 rg 1 0 0 1 54.00 506.99 Tm (6. In-app icon nudges) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 488.49 Tm (Round AMOLED targets that use the scaled icons also get four fine nudges to sit around the larger status) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 473.58 Tm (text:) Tj ET
+0.130 0.420 0.660 rg 56.00 457.67 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 454.67 Tm (Direction arrow: about 1/8 line height down, then 2 px up, and 8 px to the left.) Tj ET
+0.130 0.420 0.660 rg 56.00 441.76 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 438.76 Tm (Repeat icon: about 1/2 its own width to the right.) Tj ET
+0.130 0.420 0.660 rg 56.00 425.85 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 422.85 Tm (Speaker icon: about 20% of the icon width to the left.) Tj ET
+0.130 0.420 0.660 rg 56.00 409.94 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 406.94 Tm (Vibration icon: about 1/2 the icon width to the right.) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 391.03 Tm (The rectangular Forerunner 255S family \(218x218\) moves its repeat icon 3 px to the right; the rectangular) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 376.12 Tm (layout otherwise re-centres automatically.) Tj ET
+BT /F2 14.000 Tf 0.130 0.300 0.520 rg 1 0 0 1 54.00 347.71 Tm (7. Launcher icons) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 329.21 Tm (Launcher icons are unchanged from each device's native size. An earlier experiment that enlarged them) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 54.00 314.30 Tm (was reverted; only the on-screen icons described above were resized.) Tj ET
+BT /F2 14.000 Tf 0.130 0.300 0.520 rg 1 0 0 1 54.00 285.89 Tm (8. Files touched) Tj ET
+0.130 0.420 0.660 rg 56.00 270.39 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 267.39 Tm (manifest.xml - 45 product IDs \(33 added\).) Tj ET
+0.130 0.420 0.660 rg 56.00 254.48 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 251.48 Tm (source/CountUpDownDelegate.mc - reset-endpoint hold, start gating \(Select only\) on launch and after) Tj ET
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 236.57 Tm (Settings, resetPausedToStartValue helper, direction-tracker seed at startup.) Tj ET
+0.130 0.420 0.660 rg 56.00 223.66 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 220.66 Tm (source/Settings.mc - one-second minimum clamp.) Tj ET
+0.130 0.420 0.660 rg 56.00 207.75 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 204.75 Tm (source/SettingsMenu/TimePicker.mc - clamp 00:00 to 00:01.) Tj ET
+0.130 0.420 0.660 rg 56.00 191.84 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 188.84 Tm (source/CountUpDownView.mc - icon offset fields and the AMOLED / 255S layout nudges.) Tj ET
+0.130 0.420 0.660 rg 56.00 175.93 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 172.93 Tm (resources/layouts/layout.xml - paused label default colour changed to yellow.) Tj ET
+0.130 0.420 0.660 rg 56.00 160.02 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 157.02 Tm (resources-<product>/drawables/{icons/, app_icons.xml} - scaled in-app icons for 20 products.) Tj ET
+0.130 0.420 0.660 rg 56.00 144.11 3.00 3.00 re f
+BT /F1 10.500 Tf 0.120 0.120 0.140 rg 1 0 0 1 67.00 141.11 Tm (README.md - updated to describe all of the above.) Tj ET
+0.72 0.74 0.78 RG 0.7 w 54.00 40 m 558.00 40 l S
+BT /F1 8 Tf 0.45 0.47 0.5 rg 1 0 0 1 54.00 28 Tm (CountUpDown - Change Summary) Tj ET
+BT /F1 8 Tf 0.45 0.47 0.5 rg 1 0 0 1 496.00 28 Tm (Page 2 / 2) Tj ET
+endstream
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000224 00000 n 
+0000000326 00000 n 
+0000000462 00000 n 
+0000005661 00000 n 
+0000005797 00000 n 
+trailer
+<< /Size 9 /Root 1 0 R >>
+startxref
+13581
+%%EOF
