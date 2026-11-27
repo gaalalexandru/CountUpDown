@@ -210,19 +210,8 @@ The launcher icon is shipped at each watch's native size. Sizes other than the 4
 | fēnix 8 Pro | `fenix8pro47mm` | 65×65 | AMOLED, 65×65 launcher icon |
 | fēnix 8 Solar 47mm | `fenix8solar47mm` | 40×40 | Solar/MIP display |
 | fēnix 8 Solar 51mm | `fenix8solar51mm` | 40×40 | Solar/MIP display |
-| fēnix 5 / quatix 5 | `fenix5` | 40×40 | Connect IQ 3.1 device |
-| fēnix 5 Plus | `fenix5plus` | 40×40 | Connect IQ 3.3 device |
-| fēnix 5S | `fenix5s` | 36×36 | Connect IQ 3.1 device, smallest body |
-| fēnix 5S Plus | `fenix5splus` | 40×40 | Connect IQ 3.3 device |
-| fēnix 5X / tactix Charlie | `fenix5x` | 40×40 | Connect IQ 3.1 device |
-| fēnix 5X Plus | `fenix5xplus` | 40×40 | Connect IQ 3.3 device |
-| fēnix 6 / 6 Solar / 6 Dual Power | `fenix6` | 40×40 | Connect IQ 3.4 device |
-| fēnix 6 Pro / 6 Sapphire / 6 Pro Solar / quatix 6 | `fenix6pro` | 40×40 | Connect IQ 3.4 device |
-| fēnix 6S / 6S Solar / 6S Dual Power | `fenix6s` | 40×40 | Connect IQ 3.4 device |
-| fēnix 6S Pro / 6S Sapphire / 6S Pro Solar | `fenix6spro` | 40×40 | Connect IQ 3.4 device |
-| fēnix 6X Pro / 6X Sapphire / 6X Pro Solar / tactix Delta / quatix 6X | `fenix6xpro` | 40×40 | Connect IQ 3.4 device, includes every 6X variant |
 
-The fēnix 5 and fēnix 6 rows list the product IDs registered in the manifest for builds made with an older SDK: current SDK releases no longer ship those device profiles, so this repository's SDK reports `Invalid device id` **warnings** for them while still building every other product. fēnix 3, fēnix 3 HR, and fēnix Chronos are intentionally absent — they are Connect IQ 1.4 devices, below the manifest's `minApiLevel` of 3.0.0, and the Settings screen depends on `WatchUi.Menu2`, which needs API 3.1.
+The fēnix 5 and fēnix 6 families are **not** in the manifest: current SDK releases no longer ship their device profiles, and listing unrecognized IDs makes **Export Project** fail with "Device ids … are not recognized". Their product IDs are preserved in [`manifest.xml.bak`](manifest.xml.bak) so a separate legacy branch can build them with an older SDK. fēnix 3, fēnix 3 HR, and fēnix Chronos are also absent — they are Connect IQ 1.4 devices, below the manifest's `minApiLevel` of 3.0.0, and the Settings screen depends on `WatchUi.Menu2`, which needs API 3.1.
 
 ### Run in the simulator or on a watch
 
