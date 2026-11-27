@@ -14,7 +14,7 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     private static var timerValue = 0;
     private var isCounting = false;
     private var pendingReset = false;
-    private var awaitingStart = false;
+    private var settingsIntervalAtOpen = 0;
     private var oneSecTimer;
     private var appView = getView();
     static var isCountingUpOld = true;
@@ -36,7 +36,6 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         isMirrored = Settings.getMirrored();
         isRepeated = Settings.getRepeated();
         isCountingUpOld = isCountingUp;
-        awaitingStart = true; // start paused; require Select/tap to begin counting
         timerValue = Settings.getInterval();
         Utils.log("Initial Settings: isCountingUp = " + isCountingUp + ", isMirrored = " + isMirrored + ", isRepeated = " + isRepeated);
         Utils.log("Initial timerValue = " + timerValue);
@@ -65,7 +64,6 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
             }
             startCounting();
             pendingReset = false;
-            awaitingStart = false;
             if (isCountingUp) {
                 appView.updateCurrentDirectionDescription(CountDirectionType.CountUp);
             } else {
@@ -92,10 +90,9 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         isCounting = false;
     }
 
-    //! Keep the counter paused but reload it to the current direction's start.
-    private function resetPausedToStartValue() as Void {
+    //! Keep the counter paused and just reflect a new direction; the value stays put.
+    private function refreshPausedDirection() as Void {
         var interval = Settings.getInterval();
-        timerValue = isCountingUp ? 0 : interval;
         pendingReset = false;
         isCountingUpOld = isCountingUp;
         appView.updateCurrentDirectionDescription(CountDirectionType.Paused);
@@ -230,12 +227,12 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
             isCountingUp = true;
             Settings.setCountingUp(isCountingUp);
             pendingReset = false;
-            if (awaitingStart) {
-                // After leaving Settings, only Select/tap starts the count.
-                resetPausedToStartValue();
-            } else {
-                startCounting();
+            if (isCounting == false) {
+                // Up/Down only change direction; they never start counting.
+                refreshPausedDirection();
             }
+            // While counting, the direction changes and counting continues; the
+            // one-second callback reports the new direction.
         }
     }
 
@@ -245,11 +242,9 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
             isCountingUp = false;
             Settings.setCountingUp(isCountingUp);
             pendingReset = false;
-            if (awaitingStart) {
-                // After leaving Settings, only Select/tap starts the count.
-                resetPausedToStartValue();
-            } else {
-                startCounting();
+            if (isCounting == false) {
+                // Up/Down only change direction; they never start counting.
+                refreshPausedDirection();
             }
         }
     }
@@ -257,10 +252,6 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
     function onExit() {
         // Clean up timer
         Utils.log("onExit called");
-        if (isCounting == false) {
-            isCountingUp = true;
-            startCounting();
-        }
         oneSecTimer.stop();
     }
 
@@ -347,7 +338,10 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         System.exit();
     }
     
-    function onMenu() as Boolean {
+    private function openSettingsMenu() as Void {
+        // Remember the interval so leaving Settings only resets the counter when
+        // the interval actually changes; a direction change keeps the value.
+        settingsIntervalAtOpen = Settings.getInterval();
         oneSecTimer.stop();
         stopCounting();
         // Generate a new Menu with a drawable Title
@@ -390,6 +384,17 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
                                                 {:alignment=>WatchUi.MenuItem.MENU_ITEM_LABEL_ALIGN_LEFT}));
 
         WatchUi.pushView(menu, new $.SettingsMenuDelegate(), WatchUi.SLIDE_UP);
+    }
+
+    function onMenu() as Boolean {
+        openSettingsMenu();
+        return true;
+    }
+
+    //! Touch devices without a physical Menu button (venu441mm, venu445mm, venux1,
+    //! vivoactive6) open Settings with a long press on the screen.
+    function onHold(evt) {
+        openSettingsMenu();
         return true;
     }
 
@@ -398,12 +403,15 @@ class CountUpDownDelegate extends WatchUi.BehaviorDelegate {
         isMirrored = Settings.getMirrored();
         isRepeated = Settings.getRepeated();
         var interval = Settings.getInterval();
-        timerValue = isCountingUp ? 0 : interval;
+        // Only an interval change resets the counter; a direction change keeps the
+        // current value (same as Up/Down outside Settings).
+        if (interval != settingsIntervalAtOpen) {
+            timerValue = isCountingUp ? 0 : interval;
+        }
         pendingReset = false;
         isCountingUpOld = isCountingUp;
         appView.updateCurrentDirectionDescription(CountDirectionType.Paused);
         stopCounting();
-        awaitingStart = true; // require an explicit Select/tap to start counting
         refreshTimerView(interval);
         oneSecTimer.start(method(:oneSecondCyclicFunction), 1000, true);
     }
